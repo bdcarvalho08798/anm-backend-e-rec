@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  document_title: MyString
+  document_number: MyString
+  reference_number: MyString
+  document_type: 1
+  author: 1
+  remarks: MyText
+  constitutional_government: one
+
+two:
+  document_title: MyString
+  document_number: MyString
+  reference_number: MyString
+  document_type: 1
+  author: 1
+  remarks: MyText
+  constitutional_government: two

@@ -1,0 +1,1 @@
+json.partial! "document_dg_forward_natdirectorates/document_dg_forward_natdirectorate", document_dg_forward_natdirectorate: @document_dg_forward_natdirectorate

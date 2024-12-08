@@ -1,0 +1,112 @@
+
+
+  <div class="card mt-2">
+    <div class="card-header cardcolor">
+      Minister Documents
+    </div>
+    <div class="card-body">
+
+    <div class="row g-0">
+      <div class="col-6"> 
+      <%= link_to "New Document", new_minister_document_path, class:"btn btn-outline-secondary btn-sm bi bi-file-earmark-plus-fill menu-hover" %></div>
+      <div class="col-sm-6">
+        <%= search_form_for @q, url: minister_documents_path, method: :get do |f| %>
+          <div class="input-group mb-3">
+          <%= f.search_field :sender_or_subject_or_reference_number_cont, class:"form-control form-control-sm rounded", type:"search", placeholder:"Search" %>
+          <%= f.submit "Search", class:"btn btn-sm btn-outline-success menu-hover" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+  
+
+<div id="minister_documents">
+<% if @minister_documents.any? %>
+ <table class="table table-sm mt-4 table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Subject</th>
+          <th scope="col">Sender </th>
+          <th scope="col">Reference number</th>
+          <th scope="col">Category</th>
+          <th scope="col">Priority</th>
+          <th scope="col">Status</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @minister_documents.each do |minister_document| %>
+        <tr>
+         <td width="20%"><%= link_to  minister_document.subject, minister_document_path(minister_document), 
+             class:"link-offset-1 link-offset-1-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" %>
+          </td>
+          <td width="20%"><%= minister_document.sender %></td>
+          <td><%= minister_document.reference_number %></td>
+          <td><%= minister_document.category %></td>
+          <td><%= minister_document.priority %></td>
+            <% @sts =  minister_document.status.to_i %>
+            <% if @sts == 0 %>
+                <% @status = "<span class='badge rounded-pill bg-danger'>Pending</span>".html_safe %>
+            <% elsif @sts == 100 %>
+                <% @status = "<span class='badge rounded-pill bg-success'>Completed</span>".html_safe %>
+            <% else %>
+                <% @status = "<span class='badge rounded-pill bg-warning'>In Progress</span>".html_safe %>
+            <% end %>
+          <td><%= @status %></td>
+          <td>
+            <div class="float-end">
+                <div class="btn-group btn-group-sm" role="group" aria-label="Small button group">
+                  <%= link_to " ", minister_document_path(minister_document), class:"bi bi-eye btn btn-sm btn-outline-secondary menu-hover" %>
+                  <%= link_to " ", edit_minister_document_path(minister_document), class:"bi bi-pencil-square btn btn-sm btn-outline-secondary menu-hover" %>
+                
+                   <!-- Button trigger modal -->
+                  <button type="button" class="bi bi-trash-fill btn btn-sm btn-outline-secondary menu-hover" data-bs-toggle="modal" data-bs-target="#exampleModal"></button>
+                  <!-- Modal -->
+                  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h1 class="modal-title fs-5" id="exampleModalLabel">Do you want to delete?</h1>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          <%= minister_document.subject %>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="bi bi-x-circle-fill btn btn-sm btn-outline-secondary menu-hover" data-bs-dismiss="modal"> No</button>
+                          <%= button_to " Yes", minister_document, method: :delete, class:"bi bi-check-circle-fill btn btn-sm btn-outline-secondary menu-hover" %>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                   <!-- Modal -->
+                </div>
+
+                <% fs = minister_document.forward_status %>
+                  <% if fs == 'minister' %>
+                    <%= link_to " ", new_minister_document_forward_directorate_path(doc_id: minister_document.id), class:"bi bi-send-fill btn btn-sm btn-outline-secondary menu-hover" %>
+                <% end %>
+               
+              </div>
+          </td>
+             
+            
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+    <% else %>
+      <p>No documents found <%= link_to "Back", minister_documents_path, class:"btn btn-sm btn-outline-secondary menu-hover" %></p>
+      
+    <% end %>
+
+
+<%= paginate @minister_documents, class:"pagination" %>
+    </div>
+
+  </div>
+
+
+
+

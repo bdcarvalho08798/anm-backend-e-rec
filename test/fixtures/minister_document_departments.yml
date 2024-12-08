@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  department: one
+  minister_document_forward_department: one
+
+two:
+  department: two
+  minister_document_forward_department: two

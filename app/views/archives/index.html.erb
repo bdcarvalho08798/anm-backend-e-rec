@@ -1,0 +1,97 @@
+
+
+  <div class="card mt-2">
+    <div class="card-header cardcolor">
+      Archives
+    </div>
+    <div class="card-body">
+
+    <div class="row g-0">
+      <div class="col-6"> <%= link_to "New Document", new_archive_path, class:"bi bi-plus btn btn-secondary btn-sm menu-hover" %></div>
+      <div class="col-sm-6">
+        <%= search_form_for @q, url: archives_path, method: :get do |f| %>
+          <div class="input-group mb-3">
+          <%= f.search_field :title_or_author_or_reference_number_cont, class:"form-control form-control-sm rounded", type:"search", placeholder:"Search" %>
+          <%= f.submit "Search", class:"btn btn-sm btn-outline-success menu-hover" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <%#= @directorates.inspect %>
+  
+
+<div id="archives">
+<% if @archives.any? %>
+ <table class="table table-sm mt-4 table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Author</th>
+          <th scope="col">Title </th>
+          <th scope="col">Reference number</th>
+          <th scope="col">Category</th>
+          <th scope="col">Priority</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @archives.each do |archive| %>
+        <tr>
+          <td width="20%"><%= archive.user.email %></td>
+          <td width="20%"><%= archive.title %></td>
+          <td><%= archive.reference_number %></td>
+          <td><%= archive.category %></td>
+          <td><%= archive.prioroty %></td>
+          
+          <td>
+            <div class="float-end">
+                <div class="btn-group btn-group-sm gap-2" role="group" aria-label="Small button group">
+                  <%= link_to " ", archive_path(archive), class:"bi bi-eye btn btn-sm btn-outline-secondary menu-hover" %>
+                   <%# if can?(:manage, Archive) %>
+                  <%= link_to " ", edit_archive_path(archive), class:"bi bi-pencil-square btn btn-sm btn-outline-secondary menu-hover" %>
+                  <!-- Button trigger modal -->
+                
+                  <button type="button" class="bi bi-trash-fill btn btn-sm btn-outline-secondary menu-hover" data-bs-toggle="modal" data-bs-target="#exampleModal"></button>
+                  <!-- Modal -->
+                  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h1 class="modal-title fs-5" id="exampleModalLabel">Do you want to delete?</h1>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          <%= archive.title %>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="bi bi-x-circle-fill btn btn-sm btn-outline-secondary menu-hover" data-bs-dismiss="modal"> No</button>
+                          <%= button_to " Yes", archive, method: :delete, class:"bi bi-check-circle-fill btn btn-sm btn-outline-secondary" %>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- End Modal-->
+                <%# end %>
+                </div>
+              </div>
+          </td>
+             
+            
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+    <% else %>
+      <p>No documents found <%= link_to "Back", archives_path, class:"btn btn-sm btn-outline-secondary menu-hover" %></p>
+      
+    <% end %>
+
+<%= paginate @archives, class:"pagination" %>
+    </div>
+
+  </div>
+
+
+
+
+

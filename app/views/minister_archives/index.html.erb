@@ -1,0 +1,92 @@
+
+  <div class="card mt-2">
+    <div class="card-header cardcolor"> Minister archives</div>
+    <div class="card-body">
+
+    <div class="row g-0">
+    <% if can?(:create, MinisterArchive) %>
+      <div class="col-6"> <%= link_to " New Document", new_minister_archive_path, class:"btn btn-outline-secondary btn-sm bi bi-file-earmark-plus-fill menu-hover" %></div>
+      <% end %>
+      <div class="col-sm-6">
+        <%= search_form_for @q, url: minister_archives_path, method: :get do |f| %>
+          <div class="input-group mb-3">
+          <%= f.search_field :document_title_or_document_number_cont, class:"form-control form-control-sm rounded", type:"search", placeholder:"Search" %>
+          <%= f.submit "Search", class:"btn btn-sm btn-outline-secondary menu-hover" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+
+<div id="minister_archives">
+<% if @minister_archives.any? %>
+ <table class="table table-sm mt-4 table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Subject</th>
+          <th scope="col">Reference number</th>
+          <th scope="col">Category</th>
+          <th scope="col">Priority</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @minister_archives.each do |minister_archive| %>
+        <tr>
+          <td width="20%"><%= link_to  minister_archive.document_title, minister_archive_path(minister_archive), 
+             class:"link-offset-1 link-offset-1-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" %>
+          </td>
+          <td width="20%"><%= minister_archive.document_number %></td>
+          <td><%= minister_archive.reference_number %></td>
+          <td><%= minister_archive.document_type %></td>
+          <td>
+            <div class="float-end">
+                <div class="btn-group btn-group-sm gap-2" role="group" aria-label="Small button group">
+                  <%= link_to " ", minister_archive_path(minister_archive), class:"bi bi-eye btn btn-sm btn-outline-secondary menu-hover" %>
+                  <%= link_to " ", edit_minister_archive_path(minister_archive), class:"bi bi-pencil-square btn btn-sm btn-outline-secondary menu-hover" %>
+                <% if can?(:delete, MinisterArchive) %>
+                  <!-- Button trigger modal -->
+                  <button type="button" class="bi bi-trash-fill btn btn-sm btn-outline-secondary menu-hover" data-bs-toggle="modal" data-bs-target="#exampleModal"></button>
+                  <!-- Modal -->
+                  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h1 class="modal-title fs-5" id="exampleModalLabel">Do you want to delete?</h1>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          <%= minister_archive.document_title %>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="bi bi-x-circle-fill btn btn-sm btn-outline-secondary menu-hover" data-bs-dismiss="modal"> No</button>
+                          <%= button_to " Yes", minister_archive, method: :delete, class:"bi bi-check-circle-fill btn btn-sm btn-outline-secondary" %>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- End Modal-->
+                <% end %>
+                </div>
+              </div>
+          </td>
+             
+            
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+    <% else %>
+      <p>No documents found <%= link_to " Back", minister_archives_path, class:"bi bi-backspace btn btn-sm btn-outline-secondary menu-hover" %></p>
+      
+    <% end %>
+
+<%= paginate @minister_archives, class:"pagination" %>
+    </div>
+
+  </div>
+</div>
+
+
+
+

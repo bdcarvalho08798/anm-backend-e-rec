@@ -1,0 +1,28 @@
+
+
+    <% if current_user&.minister?  %>
+    <%= render 'dashboard_minister_page' %> 
+
+    <% elsif current_user&.operator_minister?  %>
+    <%= render 'dashboard_operator_minister' %> 
+
+    <% elsif current_user&.directorate? %>
+    <%= render 'dashboard_directorate_page' %>
+
+    <% elsif current_user&.natdirectorate? %>
+    <%= render 'dashboard_natdirectorate_page' %>
+  
+    <% elsif current_user&.operator_dg?  %>
+    <%= render 'operator_directorate_page' %>
+
+    <% elsif current_user&.operator_dn?  %>
+    <%= render 'operator_natdirectorate' %>
+
+    <% elsif (current_user&.department? or current_user&.staff?)  %>
+    <%= render 'department_page' %> 
+
+  
+    <% else %>
+    WHO ARE YOU???
+    <% end %>
+

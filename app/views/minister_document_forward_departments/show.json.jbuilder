@@ -1,0 +1,1 @@
+json.partial! "minister_document_forward_departments/minister_document_forward_department", minister_document_forward_department: @minister_document_forward_department

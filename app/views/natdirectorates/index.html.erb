@@ -1,0 +1,37 @@
+
+<div class="container ">
+
+  <h1>Natdirectorates</h1>
+  <%= link_to "New natdirectorate", new_natdirectorate_path, class:"btn btn-success" %>
+  <div id="natdirectorates">
+    <table class="table table-sm">
+      <thead>
+        <tr>
+          <th scope="col">Code </th>
+          <th scope="col">Name</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+      <% @natdirectorates.each do |natdirectorate| %>
+        <tr>
+          <th scope="row"><%= natdirectorate.natdircode %></th>
+          <td><%= natdirectorate.natdirname %></td>
+          <td>
+
+              <div class="btn-group btn-group-sm" role="group" aria-label="Small button group">
+                <%= link_to "View", natdirectorate_path(natdirectorate), class:"btn btn-sm btn-outline-primary" %>
+                <%= link_to "Edit", edit_natdirectorate_path(natdirectorate), class:"btn btn-sm btn-outline-primary" %>
+                <%= button_to "Destroy", natdirectorate, method: :delete, data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" },  class:"btn btn-sm btn-outline-danger" %>
+              </div>
+             </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+
+

@@ -1,0 +1,32 @@
+<%= form_with(model: document_dg_forward_minister) do |form| %>
+  <% if document_dg_forward_minister.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(document_dg_forward_minister.errors.count, "error") %> prohibited this document_dg_forward_minister from being saved:</h2>
+
+      <ul>
+        <% document_dg_forward_minister.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+
+
+  <div class="mb-2 row">
+    <%= form.label :description, style: "display: block" %>
+    <div class="col-sm-6">
+      <%= form.text_area :description, class:"form-control", rows:"5" %>
+
+
+      <%= form.hidden_field :document_from_dg_id, value:@doc_dg_id %>
+      <%= form.hidden_field :directorate_id, value:@dg_id %>
+  
+
+      <div class="mt-2">
+        <%= form.submit " Send", class:"btn btn-sm btn-info float-end" %>
+      </div>
+    </div>
+  </div>
+<% end %>

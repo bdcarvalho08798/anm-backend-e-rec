@@ -1,0 +1,19 @@
+
+
+<% if notice || alert %>
+<div class="position-fixed top-0 end-0 p-3" style="z-index: 1055;">
+  <div class=" float-end">
+  <div class="alert <%= notice ? 'alert-success' : 'alert-danger' %> alert-dismissible fade show p-2 px-3" role="alert" style="font-size: 0.875rem;">
+    <%= notice || alert %>
+  </div>
+  </div>
+  </div>
+<% end %>
+
+<script type="text/javascript">
+  window.setTimeout(function() {
+    $(".alert").fadeTo(1000, 0).slideUp(1000, function() {
+      $(this).remove(); 
+    });
+  }, 5000); 
+</script>

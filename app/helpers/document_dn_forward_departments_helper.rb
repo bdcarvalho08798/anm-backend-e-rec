@@ -1,0 +1,2 @@
+module DocumentDnForwardDepartmentsHelper
+end

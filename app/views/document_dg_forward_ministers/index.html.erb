@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Document dg forward ministers</h1>
+
+<div id="document_dg_forward_ministers">
+  <% @document_dg_forward_ministers.each do |document_dg_forward_minister| %>
+    <%= render document_dg_forward_minister %>
+    <p>
+      <%= link_to "Show this document dg forward minister", document_dg_forward_minister %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New document dg forward minister", new_document_dg_forward_minister_path %>

@@ -1,0 +1,3 @@
+class ConstitutionalGovernment < ApplicationRecord
+    
+end

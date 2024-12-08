@@ -1,0 +1,10 @@
+<%= form_with(model: [ @document_from_dg, @comment_document_dg ]) do |form| %>
+  <p>
+    <%= form.label :comment, "Comment" %><br>
+    <%= form.text_area :comment, required: true, class: "form-control" %>
+  </p>
+
+  <p>
+    <%= form.submit "Send", class: "btn btn-secondary btn-sm menu-hover" %>
+  </p>
+<% end %>

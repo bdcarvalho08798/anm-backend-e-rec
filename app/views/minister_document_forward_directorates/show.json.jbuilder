@@ -1,0 +1,1 @@
+json.partial! "minister_document_forward_directorates/minister_document_forward_directorate", minister_document_forward_directorate: @minister_document_forward_directorate

@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  job_list: one
+  email: MyString
+  resume: MyString
+  diplomadegree: MyString
+  transcriptdegree: MyString
+
+two:
+  job_list: two
+  email: MyString
+  resume: MyString
+  diplomadegree: MyString
+  transcriptdegree: MyString

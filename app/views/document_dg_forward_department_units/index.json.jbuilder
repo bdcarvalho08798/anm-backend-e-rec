@@ -1,0 +1,1 @@
+json.array! @document_dg_forward_department_units, partial: "document_dg_forward_department_units/document_dg_forward_department_unit", as: :document_dg_forward_department_unit

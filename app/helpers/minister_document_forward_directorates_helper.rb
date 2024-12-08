@@ -1,0 +1,2 @@
+module MinisterDocumentForwardDirectoratesHelper
+end

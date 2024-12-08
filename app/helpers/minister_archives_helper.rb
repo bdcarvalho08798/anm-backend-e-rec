@@ -1,0 +1,2 @@
+module MinisterArchivesHelper
+end

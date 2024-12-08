@@ -1,0 +1,128 @@
+
+
+<div class="card mt-1">
+  <div class="card-header cardcolor">
+    <h5>Recent Minister Document</h5>
+  </div>
+  <div class="card-body">
+    <table class="table table-sm table-hover">
+    <thead>
+        <tr>
+        <th scope="col">Subject</th>
+        <th scope="col">Sender</th>
+        <th scope="col">Reference number</th>
+        <th scope="col">status</th>
+        <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+    <% @minister_documents.each do |minister_document| %>
+        <tr>
+            <td width="20%"><%= link_to  minister_document.subject, view_minister_document_op_dn_path(minister_document), 
+                class:"link-offset-1 link-offset-1-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" %>
+            </td>
+        
+            <td class="w-25"><%= minister_document.sender %></td>
+            <td><%= minister_document.reference_number %></td>
+            <% @sts =  minister_document.status.to_i %>
+            <% if @sts == 0 %>
+                <% @status = "<span class='badge rounded-pill bg-danger'>Pending</span>".html_safe %>
+            <% elsif @sts == 100 %>
+                <% @status = "<span class='badge rounded-pill bg-success'>Completed</span>".html_safe %>
+            <% else %>
+                <% @status = "<span class='badge rounded-pill bg-warning'>On Progress</span>".html_safe %>
+            <% end %>
+            <td><%= @status %></td>
+            <td> <%= link_to " ", view_minister_document_op_dn_path(minister_document), class:"bi bi-eye-fill btn btn-sm btn-outline-primary menu-hover" %></td>
+      
+        </tr>
+  <% end %>
+    </tbody>
+    </table>
+    </div>
+</div>
+
+
+<div class="card mt-1">
+  <div class="card-header cardcolor">
+    <h5>Recent Document from DG </h5>
+  </div>
+  <div class="card-body">
+    <table class="table table-sm table-hover">
+    <thead>
+        <tr>
+        <th scope="col">Subject</th>
+        <th scope="col">Sender</th>
+        <th scope="col">Reference number</th>
+        <th scope="col">status</th>
+        <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+    <% @document_from_dgs.each do |document_from_dg| %>
+        <tr>
+            <td width="20%"><%= link_to  document_from_dg.subject, view_doc_dg_path(document_from_dg), 
+                class:"link-offset-1 link-offset-1-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" %>
+            </td>
+            <td class="w-25"><%= document_from_dg.sender %></td>
+            <td><%= document_from_dg.reference_number %></td>
+            <% @sts =  document_from_dg.status.to_i %>
+            <% if @sts == 0 %>
+                <% @status = "<span class='badge rounded-pill bg-danger'>Pending</span>".html_safe %>
+            <% elsif @sts == 100 %>
+                <% @status = "<span class='badge rounded-pill bg-success'>Completed</span>".html_safe %>
+            <% else %>
+                <% @status = "<span class='badge rounded-pill bg-warning'>On Progress</span>".html_safe %>
+            <% end %>
+            <td><%= @status %></td>
+            <td> <%= link_to " ", view_doc_dg_path(document_from_dg), class:"bi bi-eye-fill btn btn-sm btn-outline-primary menu-hover" %></td>
+      
+        </tr>
+  <% end %>
+    </tbody>
+    </table>
+    </div>
+</div>
+
+
+<div class="card mt-2">
+  <div class="card-header cardcolor">
+    <h5>Recent Document From DN</h5>
+  </div>
+  <div class="card-body">
+  <table class="table table-sm table-hover">
+  <thead>
+      <tr>
+      <th scope="col">Subject</th>
+      <th scope="col">Sender</th>
+      <th scope="col">Reference number</th>
+      <th scope="col">status</th>
+      <th scope="col"></th>
+      </tr>
+  </thead>
+  <tbody>
+  <% @document_from_dns.each do |document_from_dn| %>
+      <tr>
+        <td width="20%"><%= link_to  document_from_dn.subject, view_document_dn_path(document_from_dn), 
+                class:"link-offset-1 link-offset-1-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" %>
+        </td>
+          <td class="w-25"><%= document_from_dn.sender %></td>
+          <td><%= document_from_dn.reference_number %></td>
+          <% @sts =  document_from_dn.status.to_i %>
+          <% if @sts == 0 %>
+              <% @status = "<span class='badge rounded-pill bg-danger'>Pending</span>".html_safe %>
+          <% elsif @sts == 100 %>
+              <% @status = "<span class='badge rounded-pill bg-success'>Completed</span>".html_safe %>
+          <% else %>
+              <% @status = "<span class='badge rounded-pill bg-warning'>On Progress</span>".html_safe %>
+          <% end %>
+          <td><%= @status %></td>
+          <td> <%= link_to " ", view_document_dn_path(document_from_dn), class:"bi bi-eye-fill btn btn-sm btn-outline-primary menu-hover" %></td>
+    
+      </tr>
+<% end %>
+  </tbody>
+  </table>
+    </div>
+</div>
+

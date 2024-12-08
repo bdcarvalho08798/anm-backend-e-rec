@@ -1,0 +1,2 @@
+module HelpDashboardHelper
+end

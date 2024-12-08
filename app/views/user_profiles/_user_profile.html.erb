@@ -1,0 +1,24 @@
+<div id="<%= dom_id user_profile %>">
+
+<div class="mb-3">
+  <div class="row g-0">
+    <div class="col-md-2">
+     <% if user_profile.user_avatar.url%>
+        <%= image_tag user_profile.user_avatar.thumb.url, class:"rounded-circle flex-shrink-0 me-2", width:"150", height:"150" %>
+        <% end %>
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title"><%= user_profile.complete_name %></h5>
+        <p class="card-text"><small class="text-body-secondary"><%= user_profile.position %></small></p>
+        
+        <p class="card-text"><%= user_profile.user.email %></p>
+        <p class="card-text"><%= user_profile.user.directorate.dirname %></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+

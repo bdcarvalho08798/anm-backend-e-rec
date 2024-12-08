@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Document dg forward  natdirectorates</h1>
+
+<div id="document_dg_forward_natdirectorates">
+  <% @document_dg_forward_natdirectorates.each do |document_dg_forward_natdirectorate| %>
+    <%= render document_dg_forward_natdirectorate %>
+    <p>
+      <%= link_to "Show this document dg forward  natdirectorate", document_dg_forward_natdirectorate %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New document dg forward to natdirectorate", new_document_dg_forward_natdirectorate_path %>

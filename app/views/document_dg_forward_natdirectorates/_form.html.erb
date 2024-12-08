@@ -1,0 +1,62 @@
+
+<%= form_with model: @document_dg_forward_natdirectorate, data: { controller: 'nested-form', nested_form_wrapper_selector_value: '.nested-form-wrapper' } do |form| %>
+  <% if document_dg_forward_natdirectorate.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(document_dg_forward_natdirectorate.errors.count, "error") %> prohibited this document_dg_forward_natdirectorate from being saved:</h2>
+
+      <ul>
+        <% document_dg_forward_natdirectorate.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+
+  <div class="card mt-3">
+  <div class="card-header bg-success-subtle">
+    Forward to National Directorate
+  </div>
+  <div class="card-body">
+  <div class="container">
+  <div class="row">
+
+  <div class="col-sm-4">
+        <div>
+        <%= form.hidden_field :document_from_dg_id, value:@doc_id %>
+        <%= form.text_area :description, class:"form-control", rows:"4", placeholder:"Remarks" %>
+      </div>
+    </div>
+
+    <div class="col-sm-8">
+      <div class="col-sm-10">
+          <template data-nested-form-target="template">
+          <%= form.fields_for :document_dg_natdirectorates, DocumentDgNatdirectorate.new, child_index: 'NEW_RECORD' do |document_dg_natdirectorate_fields| %>
+            <%= render "document_dg_natdirectorate_field_form", form: document_dg_natdirectorate_fields %>
+          <% end %>
+        </template>
+        <%= form.fields_for :document_dg_natdirectorates do |document_dg_to_natdirectorate_fields| %>
+            <%= render "document_dg_natdirectorate_field_form", form: document_dg_natdirectorate_fields %>
+          <% end %>
+          <div data-nested-form-target="target"></div>
+        </div>
+          <div class="col-sm-2">
+            
+            <button type="button" data-action="nested-form#add"class="btn btn-sm btn-secondary">Add DN</button>
+          </div>
+    </div>
+   
+      
+  </div>
+</div>
+
+<div class="mt-2">
+<%= form.submit "Forward", class:"btn btn-sm btn-success float-end"%>
+</div>
+  
+  </div>
+</div>
+<% end %>
+
+

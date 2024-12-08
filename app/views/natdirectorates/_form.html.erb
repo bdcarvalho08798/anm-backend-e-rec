@@ -1,0 +1,45 @@
+<div class="col-lg-12">
+    <div class="card bg-secondary-subtle">
+        <div class="card-body ">
+           <div class="mt-5 mt-lg-4">
+
+              <%= form_with(model: natdirectorate) do |form| %>
+                <% if natdirectorate.errors.any? %>
+                  <div style="color: red">
+                    <h2><%= pluralize(natdirectorate.errors.count, "error") %> prohibited this natdirectorate from being saved:</h2>
+
+                    <ul>
+                      <% natdirectorate.errors.each do |error| %>
+                        <li><%= error.full_message %></li>
+                      <% end %>
+                    </ul>
+                  </div>
+                <% end %>
+              <div class="row mb-4">
+                <div class="col-sm-2">
+                  <%= form.label :natdircode, style: "display: block" %>
+                  <%= form.text_field :natdircode, class:"form-control" %>
+                </div>
+
+                <div class="col-sm-4">
+                  <%= form.label :natdirname, style: "display: block" %>
+                  <%= form.text_field :natdirname, class:"form-control" %>
+                </div>
+
+                <div class="col-sm-4">
+                  <%= form.label :directorate_id, style: "display: block" %>
+                  <%= form.collection_select( :directorate_id, Directorate.all.order(:dirname),:id,:dirname,{include_blank: false}, {class: 'form-select d-inline '})%>
+                </div>
+
+                <div class="mt-3">
+                  <%= form.submit "Submit", class:"btn btn-primary " %>
+                  <%= link_to "Back", natdirectorates_path, class:"btn btn-secondary " %>
+                </div>
+       
+              </div>
+
+              <% end %>
+       </div>  
+      </div>  
+    </div>  
+  </div>

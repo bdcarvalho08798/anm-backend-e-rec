@@ -1,0 +1,2 @@
+module CommentDocumentDgHelper
+end

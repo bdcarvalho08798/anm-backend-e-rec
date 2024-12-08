@@ -1,0 +1,51 @@
+<%= form_with(model: minister_document_forward_directorate, data: { controller: 'nested-form', nested_form_wrapper_selector_value: '.nested-form-wrapper' }) do |form| %>
+  <% if minister_document_forward_directorate.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(minister_document_forward_directorate.errors.count, "error") %> prohibited this minister_document_forward_directorate from being saved:</h2>
+      <ul>
+        <% minister_document_forward_directorate.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="container">
+  <div class="card mt-3">
+    <div class="card-header cardcolor">Forward to Directorate</div>
+    <div class="card-body bg-light">
+
+      <div class="row">
+        <div class="col-sm-3">
+          <div>
+            <%= form.text_area :description, class:"form-control", rows:"4", placeholder:"Remarks" %>
+          </div>
+          <div class="mt-2">
+            <%= form.hidden_field :minister_document_id, value:params[:doc_id] %>
+          </div>
+        </div>
+        <div class="col-sm-6">
+        <div class="col-sm-12">
+              <template data-nested-form-target="template">
+                <%= form.fields_for :minister_document_directorates, MinisterDocumentDirectorate.new, child_index: 'NEW_RECORD' do |minister_document_directorate_fields| %>
+                  <%= render "minister_document_directorate_field_form", form: minister_document_directorate_fields %>
+                <% end %>
+              </template>
+              <%= form.fields_for :minister_document_directorates do |minister_document_directorate_fields| %>
+                  <%= render "minister_document_directorate_field_form", form: minister_document_directorate_fields %>
+                <% end %>
+                <div data-nested-form-target="target"></div>
+              </div>
+                  <button type="button" data-action="nested-form#add"class="btn btn-sm btn-secondary menu-hover">Add DG</button>
+                </div>
+          </div>
+          <div>
+            <%= form.submit "Submit", class:"btn btn-secondary menu-hover" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+<% end %>

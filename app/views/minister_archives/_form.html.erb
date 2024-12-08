@@ -1,0 +1,61 @@
+<%= form_with(model: minister_archive) do |form| %>
+  <% if minister_archive.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(minister_archive.errors.count, "error") %> prohibited this minister_archive from being saved:</h2>
+
+      <ul>
+        <% minister_archive.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+   <div class="mb-1 row">
+      <%= form.label :document_title, class:"col-sm-2 col-form-label" %>
+      <div class="col-sm-4">
+          <%= form.text_field :document_title, class:"form-control form-control-sm", required:true %>
+      </div>
+    </div>
+    <div class="mb-1 row">
+      <%= form.label :document_number, class:"col-sm-2 col-form-label" %>
+      <div class="col-sm-4">
+          <%= form.text_field :document_number, class:"form-control  form-control-sm" %>
+      </div>
+    </div>
+    <div class="mb-1 row">
+      <%= form.label :reference_number, class:"col-sm-2 col-form-label" %>
+      <div class="col-sm-4">
+          <%= form.text_field :reference_number, class:"form-control  form-control-sm", required:true %>
+      </div>
+    </div>
+    <div class="mb-1 row">
+      <%= form.label :document_type, class:"col-sm-2 col-form-label" %>
+      <div class="col-sm-4">
+           <%= form.select :document_type, DocumentFromDg.categories.keys.map {|category| [category.humanize, category]},{}, {class:"form-select form-select-sm "} %>
+      </div>
+    </div>
+    <div class="mb-1 row">
+      <%= form.label :remarks, class:"col-sm-2 col-form-label" %>
+      <div class="col-sm-4">
+          <%= form.text_area :remarks, class:"form-control  form-control-sm" %>
+      </div>
+    </div>
+    <div class="mb-1 row">
+      <%= form.label :minister_archive_attachment, class:"col-sm-2 col-form-label" %>
+      <div class="col-sm-4">
+        <%= form.file_field :minister_archive_attachment, class:"form-control  form-control-sm" %>
+      </div>
+    </div>
+  <div>
+    <%#= form.text_field :constitutional_government_id, value:"#{@constitutional_government_id.id}" %>
+  </div>
+
+    <div class="mb-1 row">
+    <div class="col-sm-2"></div>
+        <div class="col-sm-4">
+      <%= button_tag  class: " btn btn-sm btn-secondary menu-hover" do %><i class="bi bi-check2-square"></i> Submit<% end %>
+      <%= link_to minister_archives_path, class:" btn btn-sm btn-secondary menu-hover" do %><i class="bi bi-backspace-fill"></i> Cancel<% end %>
+    </div>
+  </div>
+<% end %>

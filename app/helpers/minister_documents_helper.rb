@@ -1,0 +1,2 @@
+module MinisterDocumentsHelper
+end

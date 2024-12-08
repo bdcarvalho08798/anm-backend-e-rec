@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Minister document forward natdirectorates</h1>
+
+<div id="minister_document_forward_natdirectorates">
+  <% @minister_document_forward_natdirectorates.each do |minister_document_forward_natdirectorate| %>
+    <%= render minister_document_forward_natdirectorate %>
+    <p>
+      <%= link_to "Show this minister document forward natdirectorate", minister_document_forward_natdirectorate %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New minister document forward natdirectorate", new_minister_document_forward_natdirectorate_path %>

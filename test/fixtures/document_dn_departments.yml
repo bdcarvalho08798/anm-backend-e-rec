@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  document_dn_forward_department: one
+  document_from_dn: one
+  department: one
+
+two:
+  document_dn_forward_department: two
+  document_from_dn: two
+  department: two

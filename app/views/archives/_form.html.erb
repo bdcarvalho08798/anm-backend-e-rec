@@ -1,0 +1,70 @@
+
+
+              <%= form_with(model: archive) do |form| %>
+                <% if archive.errors.any? %>
+                  <div style="color: red">
+                    <h2><%= pluralize(archive.errors.count, "error") %> prohibited this archive from being saved:</h2>
+
+                    <ul>
+                      <% archive.errors.each do |error| %>
+                        <li><%= error.full_message %></li>
+                      <% end %>
+                    </ul>
+                  </div>
+                <% end %>
+
+                  <div class="mb-2 row">
+                    <%= form.label :title, class:"col-sm-2 col-form-label" %>
+                    <div class="col-sm-4">
+                        <%= form.text_field :title, class:"form-control", required:true %>
+                    </div>
+                  </div>
+
+       
+
+                  <div class="mb-2 row">
+                    <%= form.label :reference_number, class:"col-sm-2 col-form-label" %>
+                    <div class="col-sm-4">
+                        <%= form.text_field :reference_number, class:"form-control" %>
+                    </div>
+                  </div>
+
+                  <div class="mb-2 row">
+                    <%= form.label :category, class:"col-sm-2 col-form-label" %>
+                    <div class="col-sm-2">
+                        <%= form.select :category, Archive.categories.keys.map {|category| [category.humanize, category]},{}, {class:"form-select"} %>
+                    </div>
+                  </div>
+
+                  <div class="mb-2 row">
+                    <%= form.label :priority, class:"col-sm-2 col-form-label" %>
+                    <div class="col-sm-2">
+                        <%= form.select :prioroty, Archive.prioroties.keys.map {|prioroty| [prioroty.humanize, prioroty]},{}, {class:"form-select"} %>
+                    </div>
+                  </div>
+
+                  <div class="mb-2 row">
+                    <%= form.label :attachment_doc, class:"col-sm-2 col-form-label" %>
+                    <div class="col-sm-4">
+                         <%= form.file_field :attachment_doc , class:"form-control" %>
+                    </div>
+                  </div>
+
+
+                <div>
+                  <%= form.hidden_field :directorate_id, value:@directorate.id  %>
+                  <%= form.hidden_field :natdirectorate_id, value:@natdirectorate.id %>
+                </div>
+
+           
+
+                    <div class="mb-1 row">
+                      <div class="col-sm-2"></div>
+                          <div class="col-sm-4">
+                        <%= button_tag  class: " btn btn-sm btn-secondary menu-hover" do %><i class="bi bi-check2-square"></i> Submit<% end %>
+                        <%= link_to archives_path, class:" btn btn-sm btn-secondary menu-hover" do %><i class="bi bi-backspace-fill"></i> Cancel<% end %>
+                      </div>
+                    </div>
+                  <% end %>
+
+

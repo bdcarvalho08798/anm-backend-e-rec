@@ -1,0 +1,111 @@
+
+  <div class="card mt-2">
+    <div class="card-header cardcolor">
+      Document From DG
+    </div>
+    <div class="card-body">
+
+    <div class="row g-0">
+      <div class="col-6"> <%= link_to "New Document", new_document_from_dg_path, class:"bi bi-plus btn btn-secondary btn-sm menu-hover" %></div>
+      <div class="col-sm-6">
+        <%= search_form_for @q, url: document_from_dgs_path, method: :get do |f| %>
+          <div class="input-group mb-3">
+          <%= f.search_field :sender_or_subject_or_reference_number_cont, class:"form-control form-control-sm rounded", type:"search", placeholder:"Search" %>
+          <%= f.submit "Search", class:"btn btn-sm btn-outline-success menu-hover" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <%#= @directorates.inspect %>
+  
+
+<div id="document_from_dgs">
+<% if @document_from_dgs.any? %>
+ <table class="table table-sm mt-4 table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Sender </th>
+          <th scope="col">Subject</th>
+          <th scope="col">Reference number</th>
+          <th scope="col">Category</th>
+          <th scope="col">Priority</th>
+          <th scope="col">Status</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @document_from_dgs.each do |document_from_dg| %>
+        <tr>
+          <td width="20%"><%= document_from_dg.sender %></td>
+          <td width="20%"><%= document_from_dg.subject %></td>
+          <td><%= document_from_dg.reference_number %></td>
+          <td><%= document_from_dg.category %></td>
+          <td><%= document_from_dg.priority %></td>
+           
+            <% @sts =  document_from_dg.status.to_i %>
+            <% if @sts == 0 %>
+                <% @status = "<span class='badge rounded-pill bg-danger'>Pending</span>".html_safe %>
+            <% elsif @sts == 100 %>
+                <% @status = "<span class='badge rounded-pill bg-success'>Completed</span>".html_safe %>
+            <% else %>
+                <% @status = "<span class='badge rounded-pill bg-warning'>On Progress</span>".html_safe %>
+            <% end %>
+
+
+          <td><%= @status %></td>
+          <td>
+            <div class="float-end">
+                <div class="btn-group btn-group-sm" role="group" aria-label="Small button group">
+                  <%= link_to " ", document_from_dg_path(document_from_dg), class:"bi bi-eye-fill btn btn-sm btn-outline-secondary menu-hover" %>
+                  <%= link_to " ", edit_document_from_dg_path(document_from_dg), class:"bi bi-pencil-fill btn btn-sm btn-outline-secondary menu-hover" %>
+                  <!-- Button trigger modal -->
+                  <button type="button" class="bi bi-trash-fill btn btn-sm btn-outline-secondary menu-hover" data-bs-toggle="modal" data-bs-target="#exampleModal"></button>
+                  <!-- Modal -->
+                  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h1 class="modal-title fs-5" id="exampleModalLabel">Do you want to delete?</h1>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          <%= document_from_dg.subject %>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="bi bi-x-circle-fill btn btn-sm btn-outline-secondary menu-hover" data-bs-dismiss="modal"> No</button>
+                          <%= button_to " Yes", document_from_dg, method: :delete, class:"bi bi-check-circle-fill btn btn-sm btn-outline-secondary" %>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- End Modal-->
+                </div>
+
+                <% fs = document_from_dg.forwardstatus %>
+                <% if fs == 'directorate' %>
+                   <% if @directorates.present?  %>
+                      <%= link_to " ", new_document_dg_forward_department_unit_path(doc_id: document_from_dg.id), class:"bi bi-share-fill btn btn-sm btn-outline-secondary menu-hover" %>
+                    <% else  %>
+                        <%= link_to " ", new_document_dg_forward_natdirectorate_path(doc_id: document_from_dg.id), class:"bi bi-share-fill btn btn-sm btn-outline-secondary menu-hover" %>
+                    <% end  %>
+                <% end %>
+              </div>
+          </td>
+             
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+    <% else %>
+      <p>No documents found <%= link_to "Back", document_from_dgs_path, class:"btn btn-sm btn-outline-secondary menu-hover" %></p>
+      
+    <% end %>
+<%= paginate @document_from_dgs, class:"pagination" %>
+    </div>
+
+  </div>
+
+
+
+

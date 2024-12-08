@@ -1,0 +1,185 @@
+
+<div class="row mt-2">
+  <div class="col-sm-8 mb-3 mb-sm-0">
+    <div class="card">
+    <h6 class="card-header cardcolor">View Minister Document </h6>
+      <div class="card-body">
+
+<div id="<%= dom_id @minister_document %>">
+
+ <ul class="list-group">
+    <li class="list-group-item ">
+        <div class=" row">
+          <label class="col-sm-3 col-form-label "><strong>Sender:</strong></label> 
+          <div class="col-sm-7">
+            <%= @minister_document.sender %> 
+          </div>
+          <div class="col-sm-2">
+            <span class="badge text-bg-success rounded-pill float-end"><%= @minister_document.document_source %></span>
+          </div>
+        </div>
+    </li>
+    <li class="list-group-item">
+      <div class="row">
+          <label class="col-sm-3 col-form-label"><strong>Subject:</strong></label> 
+        <div class="col-sm-9">
+          <%= @minister_document.subject %>
+        </div>
+      </div>
+    </li>
+    <li class="list-group-item">
+      <div class="row">
+          <label class="col-sm-3 col-form-label"><strong>Reference Number:</strong></label> 
+        <div class="col-sm-9">
+          <%= @minister_document.reference_number %>
+        </div>
+      </div>
+    </li>
+     <li class="list-group-item">
+        <div class="row">
+          <label class="col-sm-3 col-form-label"><strong>Priority:</strong></label> 
+          <div class="col-sm-9">
+            <%= @minister_document.priority %>
+          </div>
+        </div>
+      </li>
+     <li class="list-group-item">
+        <div class="row">
+          <label class="col-sm-3 col-form-label"><strong>Category:</strong></label> 
+          <div class="col-sm-9">
+            <%= @minister_document.category %>
+          </div>
+        </div>
+      </li>
+     <li class="list-group-item">
+        <div class="row">
+          <label class="col-sm-3 col-form-label"><strong>Status:</strong></label> 
+          <div class="col-sm-9">
+                <% @sts =  @minister_document.status.to_i %>
+                  <% if @sts == 0 %>
+                      <% @status = "<span class='badge rounded-pill bg-danger'>Pending</span>".html_safe %>
+                  <% elsif @sts == 100 %>
+                      <% @status = "<span class='badge rounded-pill bg-success'>Completed</span>".html_safe %>
+                  <% else %>
+                      <% @status = "<span class='badge rounded-pill bg-warning'>In Progress</span>".html_safe %>
+                  <% end %>
+                    
+                   
+                    <div class="row">
+                      <div class="col-md-2">
+                        <%= @status %><br>
+                      </div>
+                      <div class=" col-md-10">
+                        <div class="progress mt-2" >
+                          <div class="progress-bar bg-success" role="progressbar" style="width: <%= @sts%>%;" aria-valuenow="<%= @sts%>" aria-valuemin="<%= @sts%>" aria-valuemax="100"><%= @sts%>%</div>
+                        </div>
+                      </div>
+                    </div>
+                  
+          </div>
+        </div>
+      </li>
+       
+       <li class="list-group-item">
+          <div class=" row">
+              <label class="col-sm-3 col-form-label"><strong>Attachment :</strong></label> 
+            <div class="col-sm-9">
+                <a href="<%= @minister_document.attachment_document.url %>" target="_blank" %>
+                <%= File.basename(@minister_document.attachment_document.file.path) if @minister_document.attachment_document.file %>
+                </a>
+            </div>
+          </div>
+        </li>
+
+
+  </ul>
+
+
+</div>
+    </div>
+  </div>
+</div>
+
+
+  <div class="col-sm-4">
+      <div class="row">
+
+       <% if @minister_document_forward_directorate.present? %>
+       <div class="col-sm-12 mb-2">
+            <div class="card">
+            <h6 class="card-header cardcolor">Remarks from Minister</h6>
+              <div class="card-body">
+              <%= @minister_document_forward_directorate.description %>
+            </div>
+          </div>
+          </div>
+      <% end%>
+
+      <% if @minister_document_forward_natdirectorates.present? %>
+       <div class="col-sm-12 mb-2">
+            <div class="card">
+            <h6 class="card-header cardcolor">Remarks from DG</h6>
+              <div class="card-body">
+              <%= @minister_document_forward_natdirectorates.description %>
+            </div>
+          </div>
+          </div>
+      <% end%>
+
+      <% if @minister_document_forward_departments.present? %>
+       <div class="col-sm-12 mb-2">
+            <div class="card">
+            <h6 class="card-header cardcolor">Remarks from DN</h6>
+              <div class="card-body">
+              <%= @minister_document_forward_departments.description %>
+            </div>
+          </div>
+          </div>
+      <% end%>
+
+      <% if @minister_document_forward_department_units.present? %>
+       <div class="col-sm-12 mb-2">
+            <div class="card">
+            <h6 class="card-header cardcolor">Remarks from DG</h6>
+              <div class="card-body">
+              <%= @minister_document_forward_department_units.description %>
+            </div>
+          </div>
+          </div>
+      <% end%>
+
+     
+      
+     <div class="col-sm-12 mb-2">
+        <div class="card">
+        <h6 class="card-header cardcolor">Update Status</h6>
+          <div class="card-body">
+            <div class="col-sm-8">
+                   <% @doc_id = MinisterDocument.find(params[:id])%>
+                   <%= form_with(model: @doc_id) do |form| %>
+                    <div class="input-group input-group-sm mb-3">
+                      <span class="input-group-text" id="inputGroup-sizing-sm">Status</span>
+                      <%= form.select :status, MinisterDocument.statuses.keys.map {|status| [status.humanize, status]},{}, {class:"form-select form-select-sm",  aria_label:"Sizing example input", aria_describedby:"inputGroup-sizing-sm"} %>                    
+                       <%= form.submit "Update", class:"btn btn-sm btn-secondary menu-hover" %>
+                      </div>
+                  <% end %>
+          </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="col-sm-12">
+        <div class="card">
+        <h6 class="card-header cardcolor">Comments</h6>
+          <div class="card-body">
+            <%= render 'comment_minister_document/comment', minister_document: @minister_document %>
+            <%= render "comment_minister_document/form", minister_document: @minister_document %>
+          </div>
+        </div>
+      </div>
+      
+      </div>
+  </div>
+
+</div>

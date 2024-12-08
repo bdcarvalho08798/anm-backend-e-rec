@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @constitutional_government %>
+
+<div>
+  <%= link_to "Edit this constitutional government", edit_constitutional_government_path(@constitutional_government) %> |
+  <%= link_to "Back to constitutional governments", constitutional_governments_path %>
+
+  <%= button_to "Destroy this constitutional government", @constitutional_government, method: :delete %>
+</div>

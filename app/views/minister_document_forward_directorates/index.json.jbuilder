@@ -1,0 +1,1 @@
+json.array! @minister_document_forward_directorates, partial: "minister_document_forward_directorates/minister_document_forward_directorate", as: :minister_document_forward_directorate

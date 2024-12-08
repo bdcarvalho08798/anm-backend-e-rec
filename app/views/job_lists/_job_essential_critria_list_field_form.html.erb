@@ -1,0 +1,9 @@
+<div class="nested-form-wrapper mb-3" data-new-record="<%= form.object.new_record? %>">
+
+<div>
+    <%= form.label :name, style: "display: block" %>
+    <%= form.text_field :name %>
+  </div>
+
+  <%= form.hidden_field :_destroy %>
+</div>

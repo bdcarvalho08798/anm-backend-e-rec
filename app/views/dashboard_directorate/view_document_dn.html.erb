@@ -1,0 +1,133 @@
+
+
+<div class="row mt-2">
+  <div class="col-sm-8 mb-3 mb-sm-0">
+    <div class="card">
+    <h6 class="card-header cardcolor">Document DN</h6>
+      <div class="card-body">
+
+           <div id="<%= dom_id @document_from_dn %>">
+
+            <ul class="list-group">
+              <li class="list-group-item">
+                  <div class=" row">
+                    <label class="col-sm-3 col-form-label"><strong>Sender:</strong></label> 
+                    <div class="col-sm-7">
+                      <%= @document_from_dn.sender %> 
+                    </div>
+                    <div class="col-sm-2">
+                      <span class="badge text-bg-success rounded-pill float-end"><%= @document_from_dn.document_source %></span>
+                    </div>
+                  </div>
+              </li>
+              <li class="list-group-item">
+                <div class="row">
+                    <label class="col-sm-3 col-form-label"><strong>Subject:</strong></label> 
+                  <div class="col-sm-9">
+                    <%= @document_from_dn.subject %>
+                  </div>
+                </div>
+              </li>
+              <li class="list-group-item">
+                <div class="row">
+                  <label class="col-sm-3 col-form-label"><strong>Reference number:</strong></label> 
+                  <div class="col-sm-9">
+                    <%= @document_from_dn.reference_number %>
+                  </div>
+                  </div>
+              </li>
+              <li class="list-group-item">
+                <div class="row">
+                  <label class="col-sm-3 col-form-label"><strong>Priority:</strong></label> 
+                  <div class="col-sm-9">
+                    <%= @document_from_dn.priority %>
+                  </div>
+                </div>
+              </li>
+              <li class="list-group-item">
+                <div class="row">
+                      <label class="col-sm-3 col-form-label"><strong>Category:</strong></label> 
+                    <div class="col-sm-9">
+                      <%= @document_from_dn.category %>
+                    </div>
+                  </div>
+              </li>
+              <li class="list-group-item">
+                <div class="row">
+                    <label class="col-sm-3 col-form-label"><strong>Status:</strong></label> 
+                  <div class="col-sm-9">
+
+
+                  <% @sts =  @document_from_dn.status.to_i %>
+                  <% if @sts == 0 %>
+                      <% @status = "<span class='badge rounded-pill bg-danger'>Pending</span>".html_safe %>
+                  <% elsif @sts == 100 %>
+                      <% @status = "<span class='badge rounded-pill bg-success'>Completed</span>".html_safe %>
+                  <% else %>
+                      <% @status = "<span class='badge rounded-pill bg-warning'>On Progress</span>".html_safe %>
+                  <% end %>
+
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-md-2">
+                        <%= @status %><br>
+                      </div>
+                      <div class=" col-md-10">
+                        <div class="progress mt-2" >
+                          <div class="progress-bar bg-success" role="progressbar" style="width: <%= @sts%>%;" aria-valuenow="<%= @sts%>" aria-valuemin="<%= @sts%>" aria-valuemax="100"><%= @sts%>%</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                   
+                  </div>
+                </div>
+              </li>
+              <li class="list-group-item">
+                <div class="row">
+                    <label class="col-sm-3 col-form-label"><strong>Directorate:</strong></label> 
+                  <div class="col-sm-9">
+                    <%= @document_from_dn.natdirectorate.natdirname %>
+                  </div>
+                </div>
+              </li>
+          
+              <li class="list-group-item">
+              <div class=" row">
+                   <label class="col-sm-3 col-form-label"><strong>Attachment :</strong></label> 
+                  <div class="col-sm-9">
+                     <a href="<%= @document_from_dn.attachment_doc_dn.url %>" target="_blank" %>
+                      <%= File.basename(@document_from_dn.attachment_doc_dn.file.path) if @document_from_dn.attachment_doc_dn.file %>
+                     </a>
+                  </div>
+                </div>
+              </li>
+            </ul>
+            </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-sm-4">
+      
+
+      
+
+      <div class="col-sm-12">
+        <div class="card">
+        <h6 class="card-header cardcolor">Comments</h6>
+          <div class="card-body">
+            <%= render 'comment_document_dn/comment', document_from_dn: @document_from_dn %>
+            <%= render "comment_document_dn/form", document_from_dn: @document_from_dn %>
+        </div>
+
+      </div>
+      </div>
+  </div>
+
+
+</div>
+
+
+
+

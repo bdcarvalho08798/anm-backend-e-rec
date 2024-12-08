@@ -1,0 +1,46 @@
+<%= form_with(model: job_list, data: { controller: 'nested-form', nested_form_wrapper_selector_value: '.nested-form-wrapper' }) do |form| %>
+  <% if job_list.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(job_list.errors.count, "error") %> prohibited this job_list from being saved:</h2>
+
+      <ul>
+        <% job_list.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :title, style: "display: block" %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div>
+    <%= form.label :deadline, style: "display: block" %>
+    <%= form.date_field :deadline %>
+  </div>
+
+  <div>
+    <%= form.label :description, style: "display: block" %>
+    <%= form.rich_text_area :description %>
+    <%#= form.text_area :description %>
+  </div>
+
+  <template data-nested-form-target="template">
+  <%= form.fields_for :job_essential_critria_lists, JobEssentialCritriaList.new, child_index: 'NEW_RECORD' do |job_essential_critria_list_fields| %>
+    <%= render "job_essential_critria_list_field_form", form: job_essential_critria_list_fields %>
+  <% end %>
+</template>
+<%= form.fields_for :job_essential_critria_lists do |job_essential_critria_list_fields| %>
+    <%= render "job_essential_critria_list_field_form", form: job_essential_critria_list_fields %>
+  <% end %>
+  <div data-nested-form-target="target"></div>
+
+    <button type="button" data-action="nested-form#add">Add Question</button>
+
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

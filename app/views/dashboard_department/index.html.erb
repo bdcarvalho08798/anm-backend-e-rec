@@ -1,0 +1,79 @@
+
+<div class="container ">
+  <div class="card mt-2">
+    <div class="card-header cardcolor">
+      Document From DG 
+    </div>
+    <div class="card-body">
+
+    <div class="row g-0">
+      
+      <div class="col-sm-6">
+        <%= search_form_for @q, url: dashboard_department_path do |f| %>
+          <div class="input-group mb-3">
+          <%= f.search_field :sender_or_subject_or_reference_number_cont, class:"form-control rounded", type:"search", placeholder:"Search" %>
+          <%= f.submit "Search", class:"btn btn-outline-success menu-hover" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+<div id="document_from_dgs">
+<% if @document_from_dgs.any? %>
+ <table class="table table-sm mt-4 table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Subject</th>
+          <th scope="col">Sender </th>
+          <th scope="col">Reference number</th>
+          <th scope="col">Category</th>
+          <th scope="col">Priority</th>
+          <th scope="col">Status</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @document_from_dgs.each do |document_from_dg| %>
+        <tr>
+          <td width="20%"><%= link_to  document_from_dg.subject, view_document_from_dg_path(document_from_dg), 
+              class:"link-offset-1 link-offset-1-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" %>
+          </td>
+          <td width="20%"><%= document_from_dg.sender %></td>
+          <td><%= document_from_dg.reference_number %></td>
+          <td><%= document_from_dg.category %></td>
+          <td><%= document_from_dg.priority %></td>
+           
+            <% @sts =  document_from_dg.status.to_i %>
+            <% if @sts == 0 %>
+                <% @status = "<span class='badge rounded-pill bg-danger'>Pending</span>".html_safe %>
+            <% elsif @sts == 100 %>
+                <% @status = "<span class='badge rounded-pill bg-success'>Completed</span>".html_safe %>
+            <% else %>
+                <% @status = "<span class='badge rounded-pill bg-warning'>On Progress</span>".html_safe %>
+            <% end %>
+
+          <td><%= @status %></td>
+          <td>
+            <div class="float-end">
+                <div class="btn-group btn-group-sm" role="group" aria-label="Small button group">
+                  <%= link_to " ", view_document_from_dg_path(document_from_dg), class:"bi bi-eye-fill btn btn-sm btn-outline-secondary menu-hover" %>
+                </div>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+    <%= paginate @document_from_dgs %>
+  <% else %>
+      <p>No documents found <%= link_to "Back", dashboard_department_path, class:"btn btn-sm btn-outline-secondary" %></p>
+   <% end %>
+    </div>
+
+  </div>
+</div>
+
+
+
+
+
+

@@ -1,0 +1,105 @@
+<div class="sticky-top">
+<nav class=" navbar  navbar-expand-lg navbarbgclr ">
+  <div class="container ">
+  
+    <a class="navbar-brand" href="/"><img src="../../../mof.png" style="width:30px;padding:1px; " class="card-img-top" alt="..."></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse  navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav ">
+        <li class="nav-item">
+          <a class="nav-link menu-hover bi bi-house-door-fill" aria-current="page" href="/"> Home <%#= request.path %></a>
+        </li>
+
+        <% if user_signed_in? and request.path != root_path %>
+          <% if  current_user.minister? %> 
+             <li class="nav-item"><a class="nav-link  menu-hover"  href="/dashboard_minister"><i class="bi bi-files"></i> Dashboard</a></li>
+              <li class="nav-item"><a class="nav-link   menu-hover"  href="/dashboard_minister/document_dg_minister"><i class="bi bi-files"></i> Document DG</a></li>
+              <li class="nav-item"><a class="nav-link   menu-hover"  href="/minister_archives"><i class="bi bi-files"></i> Archive</a></li>
+          <% elsif current_user.operator_minister? %>
+              <li class="nav-item"><a class="nav-link  menu-hover"  href="/minister_documents"><i class="bi bi-files"></i> Dashboard</a></li>
+              <li class="nav-item"><a class="nav-link   menu-hover"  href="/dashboard_operator_minister"><i class="bi bi-files"></i> Document DG</a></li>
+              <li class="nav-item"><a class="nav-link   menu-hover"  href="/minister_archives"><i class="bi bi-files"></i> Archive</a></li>
+          <% elsif current_user.directorate? %>
+              <li class="nav-item"><a class="nav-link  menu-hover"  href="/dashboard_directorate/minister_document_dg"><i class="bi bi-files"></i> Dashboard</a></li>
+              <li class="nav-item"><a class="nav-link   menu-hover"  href="/dashboard_directorate"><i class="bi bi-files"></i> Document DG</a></li>
+              <% @directorate_units = Directorate.where(id: current_user.directorate_id , unit: true) %>
+              <%if !@directorate_units.present? %>
+              <li class="nav-item"><a class="nav-link   menu-hover"  href="/dashboard_directorate/document_dn"><i class="bi bi-files"></i> Document DN</a></li>
+              <% end %>
+          <% elsif current_user.operator_dg? %>
+              <li class="nav-item"><a class="nav-link  menu-hover"  href="/dashboard_operator_directorate"><i class="bi bi-files"></i> Dashboard</a></li>
+              <li class="nav-item"><a class="nav-link   menu-hover"  href="/document_from_dgs"><i class="bi bi-files"></i> Document DG</a></li>
+          <% elsif current_user.natdirectorate? %>
+              <li class="nav-item"><a class="nav-link  menu-hover"  href="/dashboard_natdirectorate/minister_document_op_dn"><i class="bi bi-files"></i> Minister Document</a></li>
+              <li class="nav-item"><a class="nav-link   menu-hover"  href="/dashboard_natdirectorate"><i class="bi bi-files"></i> Document DG</a></li>
+              <li class="nav-item"><a class="nav-link   menu-hover"  href="/dashboard_natdirectorate/doc_from_dn"><i class="bi bi-files"></i> Document DN</a></li>
+          <% elsif current_user.operator_dn? %>
+              <li class="nav-item"><a class="nav-link  menu-hover"  href="/dashboard_natdirectorate/minister_document_op_dn"><i class="bi bi-files"></i> Minister Document</a></li>
+              <li class="nav-item"><a class="nav-link   menu-hover"  href="/dashboard_natdirectorate"><i class="bi bi-files"></i> Document DG</a></li>
+              <li class="nav-item"><a class="nav-link   menu-hover"  href="/document_from_dns"><i class="bi bi-files"></i> Document DN</a></li>
+          <% elsif current_user.department? or current_user.staff? %>
+              <% @directorate_id = current_user.directorate_id
+                 @directorate_units = Directorate.where(id: @directorate_id ,unit: true)
+                %>
+                <%#= @directorate_units.inspect %>
+              <li class="nav-item"><a class="nav-link  menu-hover"  href="/dashboard_department/minister_document_dep"><i class="bi bi-files"></i> Minister Document</a></li>
+              <li class="nav-item"><a class="nav-link   menu-hover"  href="/dashboard_department"><i class="bi bi-files"></i> Document DG</a></li>
+              <% if !@directorate_units.present? %>
+              <li class="nav-item"><a class="nav-link   menu-hover"  href="/dashboard_natdirectorate/doc_from_dn"><i class="bi bi-files"></i> Document DN</a></li>
+              <% end %>
+          <% end%>
+        <% end %>
+        
+
+        <% if user_signed_in? and current_user.superadmin? %> 
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Dropdown link
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/directorates">directorates</a></li>
+            <li><a class="dropdown-item" href="/natdirectorates">natdirectorates</a></li>
+            <li><a class="dropdown-item" href="/departments">departments</a></li>
+            <li><a class="dropdown-item" href="/document_from_dgs">document_from_dgs</a></li>
+            <li><a class="dropdown-item" href="/document_from_dns">document_from_dns</a></li>
+          </ul>
+        </li>
+        <% end %>
+      </ul>
+    </div>
+      <ul class="navbar-nav   float-end  ">
+       <% if user_signed_in? %> 
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle menu-hover" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <% user_profile = UserProfile.find_by(user_id: current_user.id) %>
+                <% if user_profile.present?%>
+                  <% if user_profile.user_avatar.url%>
+                    <%= image_tag user_profile.user_avatar.thumb.url, class:"rounded-circle flex-shrink-0 me-2", width:"25", height:"25" %>
+            
+                    <% end %>
+                  <% else %>
+                    <img src="https://cdn-icons-png.flaticon.com/512/9187/9187604.png" alt="mdo" width="25" height="25" class="rounded-circle flex-shrink-0 me-2">
+                  <% end %>
+             
+              <%= current_user.email %>
+            </a>
+            <ul class="dropdown-menu">
+              <li class="dropdown-item"><i class="bi bi-person-fill-gear"></i>  <%= current_user.role %></li>
+              <li> <%= link_to " Update Account", edit_user_registration_path, class:"bi bi-key-fill text-dark  dropdown-item" %></li>
+              <li> <%= link_to " Help", help_dashboard_path, class:"bi bi-question-circle-fill text-dark dropdown-item" %> </li>  
+              <li></li> 
+              <li> <%= link_to ' Update Profile', new_or_edit_user_profile_path(current_user.user_profile),class:'bi bi-person-check-fill text-dark nav-link navbar-hover' %>    
+              <li> <%= button_to " Sign out", destroy_user_session_path, method: :delete, class:"bi bi-box-arrow-in-left text-dark dropdown-item" %> </li>
+            </ul>
+          </li>
+        <% else %>
+          <li class="nav-item ">
+          <%= link_to " Sign in", new_user_session_path, class:"nav-link menu-hover bi bi-box-arrow-in-right" %> 
+        </li>
+         <% end %>
+      </ul>
+  </div>
+</nav>
+</div>

@@ -1,0 +1,1 @@
+json.array! @document_dg_forward_natdirectorates, partial: "document_dg_forward_natdirectorates/document_dg_forward_natdirectorate", as: :document_dg_forward_natdirectorate

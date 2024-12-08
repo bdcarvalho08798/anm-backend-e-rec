@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Document dn forward departments</h1>
+
+<div id="document_dn_forward_departments">
+  <% @document_dn_forward_departments.each do |document_dn_forward_department| %>
+    <%= render document_dn_forward_department %>
+    <p>
+      <%= link_to "Show this document dn forward department", document_dn_forward_department %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New document dn forward department", new_document_dn_forward_department_path %>

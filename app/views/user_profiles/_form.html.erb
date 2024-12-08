@@ -1,0 +1,43 @@
+<%= form_with(model: user_profile) do |form| %>
+  <% if user_profile.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(user_profile.errors.count, "error") %> prohibited this user_profile from being saved:</h2>
+
+      <ul>
+        <% user_profile.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+
+  <div class="row">
+      <%= form.hidden_field :user_id, value: current_user.id %>
+    
+
+    <div class="col-sm-3">
+      <%= form.label :complete_name, style: "display: block" %>
+      <%= form.text_field :complete_name, class:"form-control form-control-sm", required:true %>
+    </div>
+
+    <div class="col-sm-3">
+      <%= form.label :position, style: "display: block" %>
+      <%= form.text_field :position, class:"form-control form-control-sm" %>
+    </div>
+
+    <div class="col-sm-3">
+      <%#= form.label :user_photo, style: "display: block" %>
+      <%#= form.file_field :user_avatar, class:"form-control form-control-sm" %>
+    </div>
+  </div>
+
+  <div>
+    <%= form.submit "Submit", class:"mt-2 btn btn-sm btn-secondary menu-hover" %>
+    <%= link_to "Cancel", user_profiles_path, class:"mt-2 btn btn-sm btn-secondary menu-hover" %>
+  </div>
+    
+  </div>
+
+<% end %>

@@ -1,0 +1,2 @@
+module MinisterDocumentForwardDepartmentsHelper
+end

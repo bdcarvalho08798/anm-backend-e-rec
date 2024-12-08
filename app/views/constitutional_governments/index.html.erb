@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Constitutional governments</h1>
+
+<div id="constitutional_governments">
+  <% @constitutional_governments.each do |constitutional_government| %>
+    <%= render constitutional_government %>
+    <p>
+      <%= link_to "Show this constitutional government", constitutional_government %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New constitutional government", new_constitutional_government_path %>

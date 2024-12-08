@@ -1,0 +1,25 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  sender: MyString
+  subject: MyString
+  reference_number: MyString
+  priority: 1
+  category: 1
+  status: 1
+  forwardstatus: 1
+  attachment_doc_dn: MyString
+  directorate: one
+  natdirectorate: one
+
+two:
+  sender: MyString
+  subject: MyString
+  reference_number: MyString
+  priority: 1
+  category: 1
+  status: 1
+  forwardstatus: 1
+  attachment_doc_dn: MyString
+  directorate: two
+  natdirectorate: two

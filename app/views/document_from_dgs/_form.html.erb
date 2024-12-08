@@ -1,0 +1,85 @@
+<div class="col-lg-12">
+    <div class="card bg-light">
+        <div class="card-body ">
+           <div class="mt-5 mt-lg-4">
+
+                <%= form_with(model: document_from_dg) do |form| %>
+                  <% if document_from_dg.errors.any? %>
+                    <div style="color: red">
+                      <h2><%= pluralize(document_from_dg.errors.count, "error") %> prohibited this document_from_dg from being saved:</h2>
+
+                      <ul>
+                        <% document_from_dg.errors.each do |error| %>
+                          <li><%= error.full_message %></li>
+                        <% end %>
+                      </ul>
+                    </div>
+                  <% end %>
+
+                    <div class="mb-2 row">
+                      <%= form.label :sender, class:"col-sm-2 col-form-label" %>
+                      <div class="col-sm-6">
+                        <div class="row">
+                          <div class="col-sm-8">
+                            <%= form.text_field :sender, class:"form-control" %>
+                          </div>
+                          <div class="col-sm-4">
+                            <%= form.select :document_source, DocumentFromDg.document_sources.keys.map {|document_source| [document_source.humanize, document_source]},{}, {class:"form-select"} %>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+               
+                    <div class="mb-2 row">
+                      <%= form.label :subject, class:"col-sm-2 col-form-label" %>
+                      <div class="col-sm-4">
+                         <%= form.text_field :subject, class:"form-control" %>
+                      </div>
+                    </div>
+
+                    <div class="mb-2 row">
+                      <%= form.label :reference_number, class:"col-sm-2 col-form-label" %>
+                      <div class="col-sm-3">
+                         <%= form.text_field :reference_number, class:"form-control" %>
+                      </div>
+                    </div>
+
+                    <div class="mb-2 row">
+                      <%= form.label :priority, class:"col-sm-2 col-form-label" %>
+                      <div class="col-sm-3">
+                        <%= form.select :priority, DocumentFromDg.priorities.keys.map {|priority| [priority.humanize, priority]},{}, {class:"form-select"} %>
+                      </div>
+                    </div>
+
+                    <div class="mb-2 row">
+                      <%= form.label :category, class:"col-sm-2 col-form-label" %>
+                      <div class="col-sm-3">
+                      <%= form.select :category, DocumentFromDg.categories.keys.map {|category| [category.humanize, category]},{}, {class:"form-select"} %>
+                      </div>
+                    </div>
+
+                    <div class="mb-2 row">
+                      <%= form.label :attachment_doc_dg, class:"col-sm-2 col-form-label" %>
+                      <div class="col-sm-3">
+                      <%= form.file_field :attachment_doc_dg %>
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <%= form.hidden_field :directorate_id, value:@directorate_id %>
+                    </div>
+
+                  <div class=" row">
+                   <label class="col-sm-2 col-form-label"></label>
+                    <div class="col-sm-3">
+                      <%= form.submit "Submit", class:"btn btn-sm btn-secondary menu-hover" %>
+                      <%= link_to document_from_dgs_path, class:" btn btn-sm btn-secondary menu-hover" do %> Cancel<% end %>
+                    </div>
+                    </div>
+                <% end %>
+
+          </div>  
+        </div>  
+    </div>  
+  </div>

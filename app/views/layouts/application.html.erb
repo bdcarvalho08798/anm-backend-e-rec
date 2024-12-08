@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ANM-e-recuitment-portal-backend</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+     <%#= favicon_link_tag asset_path('favicon.ico') %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/sidebars/">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </head>
+
+  <body>
+        <div class="container-fluid">
+        
+          <% if user_signed_in? %>
+            <%= render 'layouts/sidebar' %>
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <%= render 'layouts/alert'%>
+                <%= yield %>
+            </main>
+            
+            </div>
+            </div>
+          <% else %>
+          <%= render 'layouts/navbar1' %>
+          <%= yield %>
+          <% end %>
+</div>
+    </body>
+  <%#= render 'layouts/footer' %>
+
+<style>
+
+body{
+  background-size:     cover;             
+  background-repeat:   no-repeat;
+  background-position: center center;
+  background-color: rgba(255, 255, 255, 0.5); /* Adjust transparency */
+  background-blend-mode: overlay; /* Combine color and image */
+
+}
+
+.form-control {
+    border-color: #7b7e7c;
+  }
+  .form-select {
+    border-color: #7b7e7c;
+  }
+
+.underline-on-hover {
+    text-decoration: none;
+}
+.underline-on-hover:hover {
+    text-decoration: underline;
+    color: blue;
+}
+
+.navbarbgclr{
+  background-color: #5cb8fa;
+  color: white;
+}
+
+.cardcolor{
+  background-color: #8f58ed;
+  color: white;
+}
+
+.navbar-hover:hover {
+    background-color: #c9cccf;
+    border-radius: 5px;
+    color: blue;
+
+}
+
+
+.menu-hover:hover {
+    background-color: #7d2687;
+    border-radius: 5px;
+    color: #fafafa ;
+
+}
+
+.avatar {
+  vertical-align: middle;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+</style>
+</html>

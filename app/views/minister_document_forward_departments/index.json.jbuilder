@@ -1,0 +1,1 @@
+json.array! @minister_document_forward_departments, partial: "minister_document_forward_departments/minister_document_forward_department", as: :minister_document_forward_department

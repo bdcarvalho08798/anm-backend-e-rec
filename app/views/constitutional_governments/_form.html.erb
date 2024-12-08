@@ -1,0 +1,27 @@
+<%= form_with(model: constitutional_government) do |form| %>
+  <% if constitutional_government.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(constitutional_government.errors.count, "error") %> prohibited this constitutional_government from being saved:</h2>
+
+      <ul>
+        <% constitutional_government.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :sequential_number, style: "display: block" %>
+    <%= form.number_field :sequential_number %>
+  </div>
+
+  <div>
+    <%= form.label :constitutional_government_name, style: "display: block" %>
+    <%= form.text_field :constitutional_government_name %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

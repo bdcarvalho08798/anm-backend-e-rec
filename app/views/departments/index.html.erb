@@ -1,0 +1,35 @@
+
+
+<div class="container ">
+
+  <h1>department</h1>
+  <%= link_to "New department", new_department_path, class:"btn btn-success" %>
+  <div id="departments">
+    <table class="table table-sm">
+      <thead>
+        <tr>
+          <th scope="col">Code </th>
+          <th scope="col">Name</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @departments.each do |department| %>
+        <tr>
+          <th scope="row"><%= department.depcode %></th>
+          <td><%= department.depname %></td>
+          <td>
+
+              <div class="btn-group btn-group-sm" role="group" aria-label="Small button group">
+                <%= link_to "View", department_path(department), class:"btn btn-sm btn-outline-primary" %>
+                <%= link_to "Edit", edit_department_path(department), class:"btn btn-sm btn-outline-primary" %>
+                <%= button_to "Destroy", department, method: :delete, class:"btn btn-sm btn-outline-danger" %>
+              </div>
+             </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+
+</div>

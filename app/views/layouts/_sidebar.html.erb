@@ -1,0 +1,214 @@
+
+<style>
+.bd-placeholder-img {
+  font-size: 1.125rem;
+  text-anchor: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+@media (min-width: 768px) {
+  .bd-placeholder-img-lg {
+    font-size: 3.5rem;
+  }
+}
+
+.b-example-divider {
+  width: 100%;
+  height: 3rem;
+  background-color: rgba(0, 0, 0, .1);
+  border: solid rgba(0, 0, 0, .15);
+  border-width: 1px 0;
+  box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+}
+
+.b-example-vr {
+  flex-shrink: 0;
+  width: 1.5rem;
+  height: 100vh;
+}
+
+.bi {
+  vertical-align: -.125em;
+  fill: currentColor;
+}
+
+.nav-scroller {
+  position: relative;
+  z-index: 2;
+  height: 3.75rem;
+  overflow-y: hidden;
+}
+
+.nav-scroller .nav {
+  display: flex;
+  flex-wrap: nowrap;
+  padding-bottom: 1rem;
+  margin-top: -1px;
+  overflow-x: auto;
+  text-align: center;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+}
+
+.btn-bd-primary {
+  --bd-violet-bg: #712cf9;
+  --bd-violet-rgb: 112.520718, 44.062154, 249.437846;
+
+  --bs-btn-font-weight: 600;
+  --bs-btn-color: var(--bs-white);
+  --bs-btn-bg: var(--bd-violet-bg);
+  --bs-btn-border-color: var(--bd-violet-bg);
+  --bs-btn-hover-color: var(--bs-white);
+  --bs-btn-hover-bg: #6528e0;
+  --bs-btn-hover-border-color: #6528e0;
+  --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
+  --bs-btn-active-color: var(--bs-btn-hover-color);
+  --bs-btn-active-bg: #5a23c8;
+  --bs-btn-active-border-color: #5a23c8;
+}
+
+.bd-mode-toggle {
+  z-index: 1500;
+}
+
+.bd-mode-toggle .dropdown-menu .active .bi {
+  display: block !important;
+}
+</style>
+
+
+<header class="navbar sticky-top navbarbgclr flex-md-nowrap p-0 shadow" data-bs-theme="dark">
+
+
+<a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6 text-white" href="/">
+<img src="../../../mof.png" style="width:40px;padding:1px; " class="card-img-top" alt="...">
+Ministry of Finance</a>
+
+
+<ul class="navbar-nav flex-row d-md-none">
+<li class="nav-item text-nowrap">
+
+</li>
+<li class="nav-item text-nowrap">
+<button class="nav-link px-3 text-white" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+MENU <i class="bi bi-grid-3x3-gap-fill"></i>
+</button>
+</li>
+</ul>
+
+
+</header>
+
+<div class="container-fluid">
+<div class="row">
+<div class="sidebar border border-right col-md-3 col-lg-2 p-0 bg-body-tertiary">
+<div class="offcanvas-md offcanvas-end bg-body-tertiary" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="sidebarMenuLabel">
+    <img src="../../../mof.png" style="width:40px;padding:1px; " class="card-img-top" alt="...">
+    Ministry of Finance</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
+    <ul class="nav flex-column">
+    <li class="nav-item"><a class="nav-link d-flex align-items-center gap-2 menu-hover active" aria-current="page" href="/"><i class="bi bi-house-door-fill"></i>Dashboard</a></li>
+  <% if user_signed_in? %> 
+    <% if  current_user.minister? %> 
+      <li class="nav-item"><a class="nav-link d-flex align-items-center gap-2 menu-hover" href="/dashboard_minister"><i class="bi bi-folder2-open"></i>Minister Documents</a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center gap-2 menu-hover" href="/dashboard_minister/document_dg_minister"><i class="bi bi-folder2-open"></i>DGs Documents</a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center gap-2 menu-hover" href="/minister_archives"><i class="bi bi-archive-fill"></i>Archive</a></li>
+    
+      <% elsif current_user.operator_minister? %>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center gap-2 menu-hover" href="/minister_documents"><i class="bi bi-folder2-open"></i>Minister Documents</a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center gap-2 menu-hover" href="/dashboard_operator_minister"><i class="bi bi-folder2-open"></i>DGs Documents</a></li>
+      <li class="nav-item"><a class="nav-link d-flex align-items-center gap-2 menu-hover" href="/minister_archives"><i class="bi bi-archive-fill"></i>Archive</a></li>
+
+      <% elsif current_user.directorate? %>
+        <li class="nav-item"><a class="nav-link d-flex align-items-center gap-2 menu-hover" href="/dashboard_directorate/minister_document_dg"><i class="bi bi-folder2-open"></i>Minister Documents</a></li>
+        <li class="nav-item"><a class="nav-link d-flex align-items-center gap-2 menu-hover" href="/dashboard_directorate"><i class="bi bi-folder2-open"></i>DGs Documents</a></li>
+        <% @directorate_units = Directorate.where(id: current_user.directorate_id , unit: true) %>
+        <%if !@directorate_units.present? %>
+        <li class="nav-item"><a class="nav-link d-flex align-items-center gap-2 menu-hover"  href="/dashboard_directorate/document_dn"><i class="bi bi-folder2-open"></i> DNs Document</a></li>
+        <% end %>
+        <li class="nav-item"><a class="nav-link d-flex align-items-center gap-2 menu-hover"  href="/archives"><i class="bi bi-archive-fill"></i> Archives</a></li>
+      
+      <% elsif current_user.operator_dg? %>
+        <li class="nav-item"><a class="nav-link d-flex align-items-center gap-2 menu-hover"  href="/dashboard_operator_directorate"><i class="bi bi-folder2-open"></i> Minister Documents</a></li>
+        <li class="nav-item"><a class="nav-link d-flex align-items-center gap-2 menu-hover"  href="/document_from_dgs"><i class="bi bi-folder2-open"></i> DGs Document</a></li>
+        <li class="nav-item"><a class="nav-link d-flex align-items-center gap-2 menu-hover"  href="/archives"><i class="bi bi-archive-fill"></i> Archives</a></li>
+     
+      <% elsif current_user.natdirectorate? %>
+        <li class="nav-item"><a class="nav-link align-items-center gap-2 menu-hover"  href="/dashboard_natdirectorate/minister_document_op_dn"><i class="bi bi-folder2-open"></i> Minister Document</a></li>
+        <li class="nav-item"><a class="nav-link align-items-center gap-2 menu-hover"  href="/dashboard_natdirectorate"><i class="bi bi-folder2-open"></i> DGs Document</a></li>
+        <li class="nav-item"><a class="nav-link align-items-center gap-2 menu-hover"  href="/dashboard_natdirectorate/doc_from_dn"><i class="bi bi-folder2-open"></i> DNs Document</a></li>
+        <li class="nav-item"><a class="nav-link d-flex align-items-center gap-2 menu-hover"  href="/archives"><i class="bi bi-archive-fill"></i> Archives</a></li>
+       
+      <% elsif current_user.operator_dn? %>
+        <li class="nav-item"><a class="nav-link align-items-center gap-2 menu-hover"  href="/dashboard_natdirectorate/minister_document_op_dn"><i class="bi bi-folder2-open"></i> Minister Document</a></li>
+        <li class="nav-item"><a class="nav-link align-items-center gap-2 menu-hover"  href="/dashboard_natdirectorate"><i class="bi bi-folder2-open"></i> DGs Document</a></li>
+        <li class="nav-item"><a class="nav-link align-items-center gap-2 menu-hover"  href="/document_from_dns"><i class="bi bi-folder2-open"></i> DNs Document</a></li>  
+         <li class="nav-item"><a class="nav-link d-flex align-items-center gap-2 menu-hover"  href="/archives"><i class="bi bi-archive-fill"></i> Archives</a></li>
+      <% elsif current_user.department? or current_user.staff? %>
+          <%  @directorate_id = current_user.directorate_id
+              @directorate_units = Directorate.where(id: @directorate_id ,unit: true)
+          %>
+        <li class="nav-item"><a class="nav-link align-items-center gap-2 menu-hover"  href="/dashboard_department/minister_document_dep"><i class="bi bi-folder2-open"></i> Minister Document</a></li>
+        <li class="nav-item"><a class="nav-link align-items-center gap-2 menu-hover"  href="/dashboard_department"><i class="bi bi-folder2-open"></i> DGs Document</a></li>
+         <li class="nav-item"><a class="nav-link d-flex align-items-center gap-2 menu-hover"  href="/archives"><i class="bi bi-archive-fill"></i> Archives</a></li>
+        <% if !@directorate_units.present? %>
+        <li class="nav-item"><a class="nav-link align-items-center gap-2 menu-hover"  href="/dashboard_natdirectorate/doc_from_dn"><i class="bi bi-folder2-open"></i> DNs Document</a></li>
+        <% end %>
+      <% elsif current_user.admin? %>
+        <li class="nav-item"><a class="nav-link align-items-center gap-2 menu-hover"  href="/admin"><i class="bi bi-sliders2-vertical"></i> Admin Page</a></li>
+         <li class="nav-item"><a class="nav-link d-flex align-items-center gap-2 menu-hover"  href="/archives"><i class="bi bi-archive-fill"></i> Archives</a></li>
+      <% end %>
+    </ul>
+
+    
+
+    <hr class="my-3">
+
+  <% user_profile = UserProfile.find_by(user_id: current_user.id) %>
+    <ul class="nav flex-column mb-auto">
+      <li class="nav-item">
+      <a class="nav-link d-flex align-items-center gap-1 menu-hover" href="#">
+      <div class="d-flex text-body-secondary">
+      
+          <% if user_profile.present?%>
+            <% if user_profile.user_avatar.url%>
+              <%= image_tag user_profile.user_avatar.thumb.url, class:"rounded-circle flex-shrink-0 me-2", width:"25", height:"25" %>
+              <% end %>
+            <% else %>
+              <img src="https://cdn-icons-png.flaticon.com/512/9187/9187604.png" alt="mdo"width="32" height="32" class="rounded-circle flex-shrink-0 me-2">
+            <% end %>
+          <div class="pb-3 mb-0 small lh-sm border-bottom w-100">
+            <div class="d-flex justify-content-between">
+              <strong class="text-gray-dark"><%= current_user.email %></strong>
+            </div>
+            <span class="d-block"><%= current_user.role %></span>
+          </div>
+        </div>
+
+        </a>
+       
+      </li>
+      <li class="nav-item">
+           <%= link_to " Update Account", edit_user_registration_path, class:"bi bi-house-door-fill nav-link d-flex align-items-center gap-2 menu-hover"  %>
+      </li>
+      
+      <li class="nav-item">
+        <%= link_to ' Update Profile', new_or_edit_user_profile_path(current_user.user_profile),class:'bi bi-person-check-fill nav-link d-flex align-items-center gap-2 menu-hover' %>  
+      </li>
+      <li class="nav-item">
+        <%= link_to " Help", help_dashboard_path, class:"bi bi-question-circle-fill nav-link d-flex align-items-center gap-2 menu-hover" %> 
+      </li>
+      <li class="nav-item">
+        <%= button_to " Sign out", destroy_user_session_path, method: :delete, class:"bi bi-box-arrow-in-left nav-link d-flex align-items-center gap-2 menu-hover" %>
+      </li>
+    </ul>
+    <% end %>
+  </div>
+</div>
+</div>

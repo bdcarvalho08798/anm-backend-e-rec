@@ -1,0 +1,59 @@
+<%= form_with(model: minister_document_forward_department, data: { controller: 'nested-form', nested_form_wrapper_selector_value: '.nested-form-wrapper' }) do |form| %>
+  <% if minister_document_forward_department.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(minister_document_forward_department.errors.count, "error") %> prohibited this minister_document_forward_department from being saved:</h2>
+
+      <ul>
+        <% minister_document_forward_department.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <div class="container">
+  <div class="card mt-3">
+    <div class="card-header bg-success-subtle"> Forward to Department</div>
+    <div class="card-body bg-light">
+
+      <div class="row">
+        <div class="col-sm-3">
+          <div>
+            <%= form.text_area :description, class:"form-control", rows:"4", placeholder:"Remarks" %>
+          </div>
+          <div class="mt-2">
+            <%= form.hidden_field :minister_document_id, value:params[:doc_id] %>
+            <%= form.hidden_field :natdirectorate_id, value:@natdir_id %>
+          </div>
+        </div>
+        <div class="col-sm-6">
+        <div class="col-sm-12">
+              <template data-nested-form-target="template">
+                <%= form.fields_for :minister_document_departments, MinisterDocumentDepartment.new, child_index: 'NEW_RECORD' do |minister_document_department_fields| %>
+                  <%= render "minister_document_department_field_form", form: minister_document_department_fields %>
+                <% end %>
+              </template>
+              <%= form.fields_for :minister_document_departments do |minister_document_department_fields| %>
+                  <%= render "minister_document_department_field_form", form: minister_document_department_fields %>
+                <% end %>
+                <div data-nested-form-target="target"></div>
+              </div>
+                  <button type="button" data-action="nested-form#add"class="btn btn-sm btn-secondary">Add Department</button>
+                </div>
+              </div>
+
+<div>
+        <%= form.submit "Submit", class:"btn btn-primary" %>
+      </div>
+        </div>
+        
+      </div>
+
+      
+        
+    </div>
+  </div>
+  </div>
+
+<% end %>

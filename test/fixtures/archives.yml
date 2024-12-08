@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  author: MyString
+  reference_number: MyString
+  prioroty: 1
+  category: 1
+  status: 1
+  directorate: one
+  natdirectorate: one
+  attachment_doc: MyString
+
+two:
+  title: MyString
+  author: MyString
+  reference_number: MyString
+  prioroty: 1
+  category: 1
+  status: 1
+  directorate: two
+  natdirectorate: two
+  attachment_doc: MyString

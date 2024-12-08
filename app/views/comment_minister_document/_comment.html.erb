@@ -1,0 +1,23 @@
+
+<% @comments = CommentMinisterDocument.where(minister_document_id: @minister_document).order(created_at: :asc) %>
+<% @comments.each do |comment| %>
+  <div class="comment">
+
+
+  <div class="d-flex text-body-secondary pt-3">
+<img src="https://cdn-icons-png.flaticon.com/512/9187/9187604.png" alt="mdo" width="32" height="32" class="rounded-circle flex-shrink-0 me-2">
+  <p class="pb-3 mb-0 small lh-sm border-bottom">
+    <strong class="d-block text-gray-dark"><%= comment.user.email %></strong>
+    <%= comment.comment %><br />
+    <em class="small text-muted">Posted on: <%= comment.created_at.strftime("%B %d, %Y %I:%M %p") %></em>
+  </p>
+</div>
+
+  </div>
+<% end %>
+
+
+
+
+
+

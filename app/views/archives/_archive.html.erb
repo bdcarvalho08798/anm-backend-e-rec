@@ -1,0 +1,102 @@
+  <div class="card mt-2">
+    <div class="card-header cardcolor">Archive</div>
+    <div class="card-body">
+
+
+<div id="<%= dom_id archive %>">
+
+ <ul class="list-group">
+      <li class="list-group-item ">
+          <div class=" row">
+            <label class="col-sm-3 col-form-label"><strong>Title:</strong></label> 
+            <div class="col-sm-7">
+              <%= archive.title %> 
+            </div>
+          </div>
+      </li>
+      <li class="list-group-item">
+        <div class="row">
+            <label class="col-sm-3 col-form-label"><strong>Author:</strong></label> 
+          <div class="col-sm-9">
+            <%= archive.user.email %>
+          </div>
+        </div>
+      </li>
+       <li class="list-group-item">
+        <div class="row">
+            <label class="col-sm-3 col-form-label"><strong>Reference number:</strong></label> 
+          <div class="col-sm-9">
+            <%= archive.reference_number %>
+          </div>
+        </div>
+      </li>
+
+       <li class="list-group-item">
+        <div class="row">
+            <label class="col-sm-3 col-form-label"><strong>Category:</strong></label> 
+          <div class="col-sm-9">
+            <%= archive.category %>
+          </div>
+        </div>
+      </li>
+      
+              
+       <li class="list-group-item">
+        <div class="row">
+            <label class="col-sm-3 col-form-label"><strong>Directorate:</strong></label> 
+          <div class="col-sm-9">
+            <%= archive.directorate.dirname %>
+          </div>
+        </div>
+      </li>
+      <li class="list-group-item">
+        <div class=" row">
+            <label class="col-sm-3 col-form-label"><strong>Attachment :</strong></label> 
+          <div class="col-sm-9">
+              <a href="<%= archive.attachment_doc.url %>" target="_blank" %>
+              <%= File.basename(archive.attachment_doc.file.path) if archive.attachment_doc.file %>
+              </a>
+          </div>
+        </div>
+      </li>
+
+
+  </ul>
+</div>
+<div class="row">
+<div class="col-sm-3"></div>
+<div class="col-sm-4">
+ <div class="btn-group gap-2">
+  <%= link_to " Edit", edit_archive_path(archive), class:"bi bi-pencil-square btn btn-sm btn-outline-secondary menu-hover" %>
+  <%= link_to " Back", archives_path, class:"bi bi-backspace-fill btn btn-sm btn-outline-secondary menu-hover" %>
+<% if can?(:delete, Archive) %>  
+  <!-- Button trigger modal -->
+<button type="button" class="bi bi-trash-fill btn btn-sm btn-outline-secondary menu-hover" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Delete
+</button>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Do you want to delete?</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+         <%= archive.title %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="bi bi-x-circle-fill btn btn-sm btn-outline-secondary menu-hover" data-bs-dismiss="modal"> No</button>
+         <%= button_to " Yes", archive, method: :delete, class:"bi bi-check-circle-fill btn btn-sm btn-outline-secondary" %>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Modal-->
+<% end %>
+</div>
+
+
+        </div>
+      </div>

@@ -1,0 +1,1 @@
+json.partial! "document_dg_forward_department_units/document_dg_forward_department_unit", document_dg_forward_department_unit: @document_dg_forward_department_unit

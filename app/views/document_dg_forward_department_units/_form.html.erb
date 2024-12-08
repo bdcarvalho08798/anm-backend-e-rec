@@ -1,0 +1,64 @@
+<%= form_with(model: document_dg_forward_department_unit, data: { controller: 'nested-form', nested_form_wrapper_selector_value: '.nested-form-wrapper' }) do |form| %>
+  <% if document_dg_forward_department_unit.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(document_dg_forward_department_unit.errors.count, "error") %> prohibited this document_dg_forward_department_unit from being saved:</h2>
+
+      <ul>
+        <% document_dg_forward_department_unit.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="card">
+  <div class="card-header">
+    Forward to Department
+  </div>
+  <div class="card-body">
+  <div class="container">
+  <div class="row">
+
+
+
+
+<div class="col-sm-4">
+<div>
+<%= form.hidden_field :document_from_dg_id, value:@doc_id %>
+<%= form.label :description, "Remarks", style: "display: block" %>
+<%= form.text_area :description, class:"form-control" %>
+</div>
+</div>
+
+  <div class="col-sm-8">
+  <div class="row">
+  
+  <div class="col-sm-10">
+      <template data-nested-form-target="template">
+      <%= form.fields_for :document_dg_department_units, DocumentDgDepartmentUnit.new, child_index: 'NEW_RECORD' do |document_dg_department_fields| %>
+        <%= render "document_dg_department_field_form", form: document_dg_department_fields %>
+      <% end %>
+    </template>
+    <%= form.fields_for :document_dg_department_units do |document_dg_department_fields| %>
+        <%= render "document_dg_department_field_form", form: document_dg_department_fields %>
+      <% end %>
+      <div data-nested-form-target="target"></div>
+      <div class="col-sm-3">
+        <button type="button" data-action="nested-form#add"class="btn btn-sm btn-primary">Add Department</button>
+      </div>
+    </div>
+    
+    </div>
+</div>
+
+</div>
+<div class="mt-2">
+<%= form.submit "Forward", class:"btn btn-sm btn-success float-end"%>
+</div>
+</div>
+
+
+
+</div>
+</div>
+<% end %>

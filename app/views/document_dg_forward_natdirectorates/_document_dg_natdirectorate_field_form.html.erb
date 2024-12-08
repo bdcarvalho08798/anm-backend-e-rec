@@ -1,0 +1,9 @@
+<div class="nested-form-wrapper mb-3" data-new-record="<%= form.object.new_record? %>">
+
+<div class="input-group mb-3">
+  <%= form.collection_select( :natdirectorate_id, @natdirectorates,:id,:natdirname,{prompt: true}, {class: 'form-select form-select-sm d-inline', aria_describedby:"button-addon2"})%>
+  <button data-action="nested-form#remove"  class="btn btn-sm btn-outline-danger" type="button" id="button-addon2">Remove</button>
+</div>
+
+  <%= form.hidden_field :_destroy %>
+</div>

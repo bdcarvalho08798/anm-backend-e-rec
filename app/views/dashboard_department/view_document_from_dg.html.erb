@@ -1,0 +1,197 @@
+
+
+<div class="row mt-2">
+  <div class="col-sm-8 mb-3 mb-sm-0">
+    <div class="card">
+    <h6 class="card-header cardcolor">Document DG</h6>
+      <div class="card-body">
+
+           <div id="<%= dom_id @document_from_dg %>">
+
+            <ul class="list-group">
+              <li class="list-group-item">
+                  <div class=" row">
+                    <label class="col-sm-3 col-form-label"><strong>Sender:</strong></label> 
+                    <div class="col-sm-7">
+                      <%= @document_from_dg.sender %> 
+                    </div>
+                    <div class="col-sm-2">
+                      <span class="badge text-bg-success rounded-pill float-end"><%= @document_from_dg.document_source %></span>
+                    </div>
+                  </div>
+              </li>
+              <li class="list-group-item">
+                <div class="row">
+                    <label class="col-sm-3 col-form-label"><strong>Subject:</strong></label> 
+                  <div class="col-sm-9">
+                    <%= @document_from_dg.subject %>
+                  </div>
+                </div>
+              </li>
+              <li class="list-group-item">
+                <div class="row">
+                  <label class="col-sm-3 col-form-label"><strong>Reference number:</strong></label> 
+                  <div class="col-sm-9">
+                    <%= @document_from_dg.reference_number %>
+                  </div>
+                  </div>
+              </li>
+              <li class="list-group-item">
+                <div class="row">
+                  <label class="col-sm-3 col-form-label"><strong>Priority:</strong></label> 
+                  <div class="col-sm-9">
+                    <%= @document_from_dg.priority %>
+                  </div>
+                </div>
+              </li>
+              <li class="list-group-item">
+                <div class="row">
+                      <label class="col-sm-3 col-form-label"><strong>Category:</strong></label> 
+                    <div class="col-sm-9">
+                      <%= @document_from_dg.category %>
+                    </div>
+                  </div>
+              </li>
+              <li class="list-group-item">
+                <div class="row">
+                    <label class="col-sm-3 col-form-label"><strong>Status:</strong></label> 
+                  <div class="col-sm-9">
+
+
+                  <% @sts =  @document_from_dg.status.to_i %>
+                  <% if @sts == 0 %>
+                      <% @status = "<span class='badge rounded-pill bg-danger'>Pending</span>".html_safe %>
+                  <% elsif @sts == 100 %>
+                      <% @status = "<span class='badge rounded-pill bg-success'>Completed</span>".html_safe %>
+                  <% else %>
+                      <% @status = "<span class='badge rounded-pill bg-warning'>On Progress</span>".html_safe %>
+                  <% end %>
+
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-md-2">
+                        <%= @status %><br>
+                      </div>
+                      <div class=" col-md-10">
+                        <div class="progress mt-2" >
+                          <div class="progress-bar bg-success" role="progressbar" style="width: <%= @sts%>%;" aria-valuenow="<%= @sts%>" aria-valuemin="<%= @sts%>" aria-valuemax="100"><%= @sts%>%</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                   
+                  </div>
+                </div>
+              </li>
+              <li class="list-group-item">
+                <div class="row">
+                    <label class="col-sm-3 col-form-label"><strong>Directorate:</strong></label> 
+                  <div class="col-sm-9">
+                    <%= @document_from_dg.directorate.dirname %>
+                  </div>
+                </div>
+              </li>
+              <li class="list-group-item">
+                  <div class=" row">
+                       <label class="col-sm-3 col-form-label"><strong>Forward Status:</strong></label> 
+                      <div class="col-sm-9">
+                      <%= @document_from_dg.forwardstatus %>
+                      <% fs = @document_from_dg.forwardstatus %>
+                      <% 
+                         if fs == 'natdirectorate'
+                            fst = 50
+                         elsif fs == 'department'
+                            fst = 100
+                         else 
+                            fst = 0
+                         end
+                       %>
+
+<%  if @directorates.present? %>
+<div class="position-relative m-4">
+  <div class="progress  " role="progressbar" aria-label="Progress" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="height: 4px;">
+    <div class="progress-bar bg-success" style="width: <%= fst %>%"></div>
+  </div>
+  
+  <span class="position-absolute top-0 start-0 translate-middle  rounded-pill badge text-bg-secondary" >Directorate</span>
+  <span class="position-absolute top-0 start-100 translate-middle  rounded-pill badge text-bg-success" >Department</span>
+</div>
+<% else %>
+<div class="position-relative m-4">
+  <div class="progress  " role="progressbar" aria-label="Progress" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="height: 4px;">
+    <div class="progress-bar bg-success" style="width: <%= fst %>%"></div>
+  </div>
+  
+  <span class="position-absolute top-0 start-0 translate-middle  rounded-pill badge text-bg-secondary" >Directorate</span>
+  <span class="position-absolute top-0 start-50  translate-middle  rounded-pill badge text-bg-primary" >Nat Directorate</span>
+  <span class="position-absolute top-0 start-100 translate-middle  rounded-pill badge text-bg-success" >Department</span>
+</div>
+<% end %>
+
+                        
+                      </div>
+                    </div>
+
+
+              </li>
+              <li class="list-group-item">
+              <div class=" row">
+                   <label class="col-sm-3 col-form-label"><strong>Attachment :</strong></label> 
+                  <div class="col-sm-9">
+                     <a href="<%= @document_from_dg.attachment_doc_dg.url %>" target="_blank" %>
+                      <%= File.basename(@document_from_dg.attachment_doc_dg.file.path) if @document_from_dg.attachment_doc_dg.file %>
+                     </a>
+                  </div>
+                </div>
+              </li>
+            </ul>
+            </div>
+              <% if current_user&.operator_dn?  %>
+                <% fs = @document_from_dg.forwardstatus %>
+                  <% if fs != 'department' %>
+                  <%= link_to "Forward", new_document_dg_forward_department_path(doc_id: @document_from_dg.id), class:"btn btn-sm btn-secondary float-end mt-2" %>
+                  <% end %>
+               <% end %>
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-sm-4">
+      <div class="row">
+      <div class="col-sm-12 mb-2">
+        <div class="card">
+        <h6 class="card-header cardcolor">Update Status</h6>
+          <div class="card-body">
+             <% @doc_id = DocumentFromDg.find(params[:id])%>
+                   <%= form_with(model: @doc_id) do |form| %>
+                    <div class="input-group input-group-sm mb-3">
+                      <span class="input-group-text" id="inputGroup-sizing-sm">Status</span>
+                      <%= form.select :status, DocumentFromDg.statuses.keys.map {|status| [status.humanize, status]},{}, {class:"form-select form-select-sm",  aria_label:"Sizing example input", aria_describedby:"inputGroup-sizing-sm"} %>                    
+                       <%= form.submit "Update", class:"btn btn-sm btn-secondary menu-hover" %>
+                      </div>
+
+                  <% end %>
+        </div>
+
+      </div>
+      </div>
+
+
+      <div class="col-sm-12">
+        <div class="card">
+        <h6 class="card-header cardcolor">Commets</h6>
+          <div class="card-body">
+            <%= render 'comment_document_dg/comment', document_from_dg: @document_from_dg %>
+            <%= render "comment_document_dg/form", document_from_dg: @document_from_dg %>
+        </div>
+
+      </div>
+      </div>
+  </div>
+  </div>
+
+
+</div>
+
+
+

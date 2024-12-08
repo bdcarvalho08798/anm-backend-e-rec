@@ -1,0 +1,89 @@
+
+  <div class="card mt-2">
+    <div class="card-header cardcolor">
+      Document From DN
+    </div>
+    <div class="card-body">
+
+    <div class="row g-0">
+
+      <div class="col-sm-6">
+        <%= search_form_for @q, url: dashboard_directorate_document_dn_path do |f| %>
+          <div class="input-group mb-3">
+          <%= f.search_field :sender_or_subject_or_reference_number_cont, class:"form-control form-control-sm rounded", type:"search", placeholder:"Search" %>
+          <%= f.submit "Search", class:"btn btn-sm btn-outline-success menu-hover" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+ 
+
+<div id="document_from_dns">
+<% if @document_from_dns.any? %>
+ <table class="table table-sm mt-4 table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Subject</th>
+          <th scope="col">Sender </th>
+          <th scope="col">Reference number</th>
+          <th scope="col">DN </th>
+          <th scope="col">Category</th>
+          <th scope="col">Priority</th>
+          <th scope="col">Status</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @document_from_dns.each do |document_from_dn| %>
+        <tr>
+          <td width="20%"><%= link_to  document_from_dn.subject, view_document_dn_path(document_from_dn), 
+              class:"link-offset-1 link-offset-1-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" %>
+          </td>
+          <td width="20%"><%= document_from_dn.sender %></td>
+          <td><%= document_from_dn.reference_number %></td>
+          <td width="20%"><%= document_from_dn.natdirectorate.natdircode %></td>
+          <td><%= document_from_dn.category %></td>
+          <td><%= document_from_dn.priority %></td>
+           
+            <% @sts =  document_from_dn.status.to_i %>
+            <% if @sts == 0 %>
+                <% @status = "<span class='badge rounded-pill bg-danger'>Pending</span>".html_safe %>
+            <% elsif @sts == 100 %>
+                <% @status = "<span class='badge rounded-pill bg-success'>Completed</span>".html_safe %>
+            <% else %>
+                <% @status = "<span class='badge rounded-pill bg-warning'>On Progress</span>".html_safe %>
+            <% end %>
+
+
+          <td><%= @status %></td>
+          <td>
+            <div class="float-end">
+                <div class="btn-group btn-group-sm" role="group" aria-label="Small button group">
+                  <%= link_to " ", view_document_dn_path(document_from_dn), class:"bi bi-eye btn btn-sm btn-outline-primary menu-hover" %>
+                </div>
+
+               
+               
+          </td>
+             
+            
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+    <% else %>
+      <p>No documents found <%= link_to "Back", dashboard_directorate_document_dn_path, class:"btn btn-sm btn-outline-secondary menu-hover" %></p>
+    <% end %>
+
+<%= paginate @document_from_dns, class:"pagination" %>
+
+    </div>
+
+  </div>
+</div>
+
+
+
+
+

@@ -1,0 +1,37 @@
+<div class="container ">
+
+  <h1>Directorates</h1>
+  <%= link_to "New directorate", new_directorate_path, class:"btn btn-success" %>
+  <div id="directorates">
+    <table class="table table-sm">
+      <thead>
+        <tr>
+          <th scope="col">Code </th>
+          <th scope="col">Name</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+      <% @directorates.each do |directorate| %>
+        <tr>
+          <th scope="row"><%= directorate.dircode %></th>
+          <td><%= directorate.dirname %></td>
+          <td>
+
+              <div class="btn-group btn-group-sm" role="group" aria-label="Small button group">
+                <%= link_to "View", directorate_path(directorate), class:"btn btn-sm btn-outline-primary" %>
+                <%= link_to "Edit", edit_directorate_path(directorate), class:"btn btn-sm btn-outline-primary" %>
+                <%= button_to "Destroy", directorate, method: :delete, class:"btn btn-sm btn-outline-danger" %>
+              </div>
+             </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+
+
+
