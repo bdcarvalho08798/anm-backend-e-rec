@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_12_07_051349) do
+ActiveRecord::Schema[7.1].define(version: 2024_12_10_122433) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -264,6 +264,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_07_051349) do
     t.index ["job_list_id"], name: "index_job_applications_on_job_list_id"
   end
 
+  create_table "job_essential_criteria_responses", force: :cascade do |t|
+    t.bigint "job_application_id", null: false
+    t.string "response"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["job_application_id"], name: "index_job_essential_criteria_responses_on_job_application_id"
+  end
+
   create_table "job_essential_critria_lists", force: :cascade do |t|
     t.bigint "job_list_id", null: false
     t.string "name"
@@ -458,6 +466,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_07_051349) do
   add_foreign_key "document_from_dns", "directorates"
   add_foreign_key "document_from_dns", "natdirectorates"
   add_foreign_key "job_applications", "job_lists"
+  add_foreign_key "job_essential_criteria_responses", "job_applications"
   add_foreign_key "job_essential_critria_lists", "job_lists"
   add_foreign_key "minister_archives", "constitutional_governments"
   add_foreign_key "minister_document_department_units", "departments"

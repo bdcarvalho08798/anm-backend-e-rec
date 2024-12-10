@@ -32,7 +32,7 @@ t.string "transcriptdegree"
 end
 
 =======================================================================================
-
+rails g model job_essential_criteria_response job_application:references response
 
 create_table "job_essential_criteria_responses", force: :cascade do |t|
 
