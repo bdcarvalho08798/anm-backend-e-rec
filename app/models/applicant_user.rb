@@ -6,6 +6,8 @@ class ApplicantUser < ApplicationRecord
 
   mount_uploader :user_avatar, UserAvatarUploader
 
+  has_many :job_applications
+
   # devise :omniauthable, omniauth_providers: [:google_oauth2]
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|

@@ -3,7 +3,7 @@ class JobApplicationsController < ApplicationController
 
   # GET /job_applications or /job_applications.json
   def index
-    @job_applications = JobApplication.all
+    @job_applications = JobApplication.all.order(created_at: :desc)
   end
 
   # GET /job_applications/1 or /job_applications/1.json

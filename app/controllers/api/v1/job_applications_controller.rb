@@ -2,7 +2,17 @@ class Api::V1::JobApplicationsController < ApplicationController
     skip_before_action :verify_authenticity_token, only: [:create]
 
     def index
-        @job_applications = JobApplication.all
+      userid = request.headers['X-User-userid']
+      puts "Received userid: #{userid}"  # Add this line to log the email
+    
+      userid = ApplicantUser.find_by(id: userid)
+
+      @job_applications = JobApplication.joins(:job_list)
+          .select('job_applications.*, 
+            job_lists.title AS job_title, 
+            job_lists.deadline AS deadline')
+          .where(applicant_user_id: userid)
+
         render json: @job_applications
     end
 
@@ -33,7 +43,7 @@ class Api::V1::JobApplicationsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def job_application_params
-      params.require(:job_application).permit(:job_list_id, :email, :resume, :diplomadegree, :transcriptdegree,
+      params.require(:job_application).permit(:job_list_id, :email, :resume, :diplomadegree, :transcriptdegree, :applicant_user_id,
       job_essential_criteria_responses_attributes: [:id, :response, :_destroy ] )
     end
 end

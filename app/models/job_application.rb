@@ -1,5 +1,6 @@
 class JobApplication < ApplicationRecord
   belongs_to :job_list
+  belongs_to :applicant_user
   mount_uploader :resume, ResumeUploader
   mount_uploader :diplomadegree, DiplomadegreeUploader
   mount_uploader :transcriptdegree, TranscriptdegreeUploader

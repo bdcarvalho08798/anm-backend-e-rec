@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_12_10_122433) do
+ActiveRecord::Schema[7.1].define(version: 2024_12_13_131212) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -261,6 +261,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_10_122433) do
     t.string "transcriptdegree"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "applicant_user_id", default: 1, null: false
+    t.index ["applicant_user_id"], name: "index_job_applications_on_applicant_user_id"
     t.index ["job_list_id"], name: "index_job_applications_on_job_list_id"
   end
 
@@ -465,6 +467,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_10_122433) do
   add_foreign_key "document_from_dgs", "directorates"
   add_foreign_key "document_from_dns", "directorates"
   add_foreign_key "document_from_dns", "natdirectorates"
+  add_foreign_key "job_applications", "applicant_users"
   add_foreign_key "job_applications", "job_lists"
   add_foreign_key "job_essential_criteria_responses", "job_applications"
   add_foreign_key "job_essential_critria_lists", "job_lists"

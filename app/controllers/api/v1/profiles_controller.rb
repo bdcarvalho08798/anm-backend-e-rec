@@ -10,7 +10,7 @@ class Api::V1::ProfilesController < ApplicationController
     
         if user
           render json: {
-            id: user.id,
+            userid: user.id,
             name: user.name,
             email: user.email,
             user_avatar: user.user_avatar
