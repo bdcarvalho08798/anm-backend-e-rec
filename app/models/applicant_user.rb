@@ -19,4 +19,13 @@ class ApplicantUser < ApplicationRecord
   def generate_jwt
     JWT.encode({ id: id, exp: 60.days.from_now.to_i }, Rails.application.secrets.secret_key_base)
   end
+
+  def valid_token?(token)
+    # Decode the token and match the user (use your token logic here)
+    decoded_token = JWT.decode(token, Rails.application.secret_key_base).first
+    decoded_token['sub'] == id
+  rescue JWT::DecodeError
+    false
+  end
+  
 end

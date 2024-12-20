@@ -9,6 +9,7 @@ class Api::V1::JobApplicationsController < ApplicationController
 
       @job_applications = JobApplication.joins(:job_list)
           .select('job_applications.*, 
+            job_lists.id AS job_list_id, 
             job_lists.title AS job_title, 
             job_lists.deadline AS deadline')
           .where(applicant_user_id: userid)

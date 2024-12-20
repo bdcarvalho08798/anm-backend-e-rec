@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       resources :registrations, only: [:create]
       resources :sessions, only: [:create]
       resource :profile, only: [:show, :update]
+      patch 'change_password', to: 'change_passwords#update'
     end
   end
 
